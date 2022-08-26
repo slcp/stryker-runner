@@ -32,7 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
       const editor = vscode.window.activeTextEditor;
 
       if (!editor) {
-        console.log("No action, noactive editor");
+        console.log("No action, no active editor");
         return;
       }
       if (editor.selection.isEmpty) {

@@ -1,37 +1,58 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
+import { run } from "./stryker";
+import { isTestFile, showInvalidFileMessage } from "./valid-files";
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
-  console.log(
-    'Congratulations, your extension "stryker-runner" is now active!'
-  );
-
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
   let runStrykerOnFile = vscode.commands.registerCommand(
     "stryker-runner.run-stryker-on-file",
     (...args) => {
       if (!(args[0] instanceof vscode.Uri)) return;
-      const isTestFile = new RegExp(/^.*(?<!\.test)\.[tj]s$/);
       const file = args[0];
-      if (!file.path.match(isTestFile)) {
-        vscode.window.showErrorMessage("Cannot run Stryker on test files");
+
+      if (isTestFile(file)) {
+        showInvalidFileMessage();
         return;
       }
-      const terminal = vscode.window.createTerminal("Stryker");
-      terminal.show();
-      terminal.sendText(`npx stryker run --mutate ${file.path}`);
+
+      run({ path: file.path });
+    }
+  );
+
+  let runStrykerOnSelection = vscode.commands.registerCommand(
+    "stryker-runner.run-stryker-on-selection",
+    (...args) => {
+      if (!(args[0] instanceof vscode.Uri)) return;
+      const file = args[0];
+
+      if (isTestFile(file)) {
+        showInvalidFileMessage();
+        return;
+      }
+
+      const editor = vscode.window.activeTextEditor;
+
+      if (!editor) {
+        console.log("No action, noactive editor");
+        return;
+      }
+      if (editor.selection.isEmpty) {
+        console.log("No action, selection is single character");
+        return;
+      }
+
+      const {
+        selection: { start, end },
+      } = editor;
+      const startLine = start.line + 1; // Need to offset, why? Jest extension does this also. Zero indexed?
+      const endLine = end.line + 1; // Need to offset, why? Jest extension does this also. Zero indexed?
+      const lineRange = `${startLine}-${endLine}`;
+
+      run({ path: file.path, lineRange });
     }
   );
 
   context.subscriptions.push(runStrykerOnFile);
+  context.subscriptions.push(runStrykerOnSelection);
 }
 
-// this method is called when your extension is deactivated
 export function deactivate() {}

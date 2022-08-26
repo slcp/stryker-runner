@@ -7,9 +7,18 @@
     "vscode": "^1.70.0"
   },
   "categories": [
-    "Other"
+    "Testing"
   ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "keywords": [
+    "Stryker",
+    "Mutation testing"
+  ],
+  "preview": true,
   "activationEvents": [
+    "workspaceContains:**/{.,}stryker.conf.@(json|js|cjs|mjs)",
     "*"
   ],
   "main": "./out/extension.js",
@@ -18,6 +27,10 @@
       {
         "command": "stryker-runner.run-stryker-on-file",
         "title": "Run Stryker on file"
+      },
+      {
+        "command": "stryker-runner.run-stryker-on-selection",
+        "title": "Run Stryker"
       }
     ],
     "menus": {
@@ -27,7 +40,28 @@
           "command": "stryker-runner.run-stryker-on-file",
           "group": "3_compare"
         }
+      ],
+      "editor/context": [
+        {
+          "command": "stryker-runner.run-stryker-on-selection",
+          "group": "02_stryker"
+        }
       ]
+    }
+  },
+  "configuration": {
+    "title": "Stryker Runner",
+    "properties": {
+      "strykerRunner.stryker.configFile": {
+        "type": "string",
+        "default": null,
+        "description": "Path to a non-standard stryker config file, see: https://stryker-mutator.io/docs/stryker-js/config-file/#usage"
+      },
+      "strykerRunner.stryker.incremental": {
+        "type": "boolean",
+        "default": false,
+        "description": "Use incremental mode when running Stryker"
+      }
     }
   },
   "scripts": {

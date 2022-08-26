@@ -8,8 +8,9 @@ export const strykerCommand = (): string => {
   );
 };
 
-export const strykerConfigFilePath = (): string | undefined =>
-  vscode.workspace.getConfiguration().get("strykerRunner.stryker.configFile");
+export const strykerConfigFilePath = (): string =>
+  vscode.workspace.getConfiguration().get("strykerRunner.stryker.configFile") ||
+  "";
 
 export const useYarn = (): boolean =>
   vscode.workspace.getConfiguration().get("strykerRunner.node.useYarn") ||

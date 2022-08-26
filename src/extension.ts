@@ -1,8 +1,10 @@
 import * as vscode from "vscode";
-import { run } from "./stryker";
+import { commandRunner } from "./stryker";
 import { isTestFile, showInvalidFileMessage } from "./valid-files";
 
 export function activate(context: vscode.ExtensionContext) {
+  const run = commandRunner();
+
   let runStrykerOnFile = vscode.commands.registerCommand(
     "stryker-runner.run-stryker-on-file",
     (...args) => {

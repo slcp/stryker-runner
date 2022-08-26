@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { strykerCommand } from "./config";
+import { strykerCommand, strykerConfigFilePath } from "./config";
 
 export const run = ({
   path,
@@ -9,8 +9,10 @@ export const run = ({
   lineRange?: string;
 }) => {
   const strykerBin = strykerCommand();
+  const configFilePath = strykerConfigFilePath() || "";
   const target = `${path}${lineRange ? `:${lineRange}` : ""}`;
-  const command = `${strykerBin} run --mutate ${target}`;
+  const command = `${strykerBin} run --mutate ${target} ${configFilePath}`;
+
   const terminal = vscode.window.createTerminal("Stryker");
   terminal.show();
   terminal.sendText(command);

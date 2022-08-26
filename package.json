@@ -61,6 +61,11 @@
         "type": "boolean",
         "default": false,
         "description": "Use incremental mode when running Stryker"
+      },
+      "strykerRunner.stryker.command": {
+        "type": "string",
+        "default": "npx stryker",
+        "description": "The command to invoke Stryker "
       }
     }
   },

@@ -20,8 +20,8 @@ jobs:
           node-version: 16
           cache: yarn
 
-      - name: Install NPM packages
-        run: npm ci
+      - name: Install packages
+        run: yarn install --frozen-lockfile
 
       - name: Lint
         run: npm run lint

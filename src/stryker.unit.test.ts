@@ -35,8 +35,6 @@ describe("Stryker", () => {
         mockStrykerCommand.mockReturnValueOnce("a command");
         mockStrykerConfigFilePath.mockReturnValueOnce("a path");
 
-        strykerCommand;
-
         commandRunner()({ path: "/path/to/file", lineRange: "1-10" });
 
         expect(makeReusableTerminal).toHaveBeenCalledWith({ name: "Stryker" });
@@ -52,8 +50,6 @@ describe("Stryker", () => {
         mockTerminal.mockReturnValueOnce("a terminal");
         mockStrykerCommand.mockReturnValueOnce("a command");
 
-        strykerCommand;
-
         commandRunner()({ path: "/path/to/file", lineRange: "1-10" });
 
         expect(makeReusableTerminal).toHaveBeenCalledWith({ name: "Stryker" });
@@ -63,6 +59,21 @@ describe("Stryker", () => {
         expect(runCommand).toHaveBeenCalledWith("a terminal");
         expect(mockRunCommandReturn).toHaveBeenCalledWith(
           "a command run --mutate /path/to/file:1-10"
+        );
+      });
+      it("should execute a Stryker command without a line range", () => {
+        mockTerminal.mockReturnValueOnce("a terminal");
+        mockStrykerCommand.mockReturnValueOnce("a command");
+
+        commandRunner()({ path: "/path/to/file" });
+
+        expect(makeReusableTerminal).toHaveBeenCalledWith({ name: "Stryker" });
+        expect(strykerCommand).toHaveBeenCalled();
+        expect(strykerConfigFilePath).toHaveBeenCalled();
+        expect(mockTerminal).toHaveBeenCalled();
+        expect(runCommand).toHaveBeenCalledWith("a terminal");
+        expect(mockRunCommandReturn).toHaveBeenCalledWith(
+          "a command run --mutate /path/to/file"
         );
       });
     });

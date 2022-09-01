@@ -4,9 +4,7 @@ export const makeReusableTerminal = ({ name }: { name: string }) => {
   let terminal: vscode.Terminal | undefined;
   vscode.window.onDidCloseTerminal((t) => {
     if (terminal && t.processId === terminal.processId) {
-      console.log(
-        `Stryker Runner's reusable terminal (pid: ${terminal.processId}) was closed`
-      );
+      console.log(`Stryker Runner's reusable terminal was closed`);
       terminal = undefined;
     }
   });
@@ -14,13 +12,10 @@ export const makeReusableTerminal = ({ name }: { name: string }) => {
   return () => {
     if (!terminal) {
       terminal = vscode.window.createTerminal(name);
-      console.log(
-        `Created a new reusable terminal for Stryker Runner with pid: ${terminal.processId}`
-      );
+      console.log(`Created a new reusable terminal for Stryker Runner`);
+    } else {
+      console.log(`Reusing terminal for Stryker Runner`);
     }
-    console.log(
-      `Reusing terminal for Stryker Runner with pid: ${terminal.processId}`
-    );
     return terminal;
   };
 };

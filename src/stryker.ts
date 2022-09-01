@@ -5,7 +5,9 @@ const makeCommand = (path: string, lineRange?: string) => {
   const strykerBin = strykerCommand();
   const configFilePath = strykerConfigFilePath();
   const target = `${path}${lineRange ? `:${lineRange}` : ""}`;
-  return `${strykerBin} run --mutate ${target} ${configFilePath}`;
+  return `${strykerBin} run --mutate ${target}${
+    configFilePath ? ` ${configFilePath}` : ""
+  }`;
 };
 
 export const commandRunner = () => {

@@ -7,5 +7,4 @@ export const mockConsoleLog = () => {
   afterAll(() => {
     console.log = originalConsoleLog;
   });
-  return () => {};
 };

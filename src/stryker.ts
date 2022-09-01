@@ -1,6 +1,11 @@
 import { strykerCommand, strykerConfigFilePath } from "./config";
 import { makeReusableTerminal, runCommand } from "./terminal";
 
+export type CommandRunner = (args: {
+  path: string;
+  lineRange?: string;
+}) => void;
+
 const makeCommand = (path: string, lineRange?: string) => {
   const strykerBin = strykerCommand();
   const configFilePath = strykerConfigFilePath();

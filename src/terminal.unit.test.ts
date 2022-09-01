@@ -1,9 +1,6 @@
-import {
-  window,
-  mockOnDidCloseTerminal,
-  mockCreateTerminal,
-} from "../__mocks__/vscode";
+import { mockCreateTerminal, window } from "../__mocks__/vscode";
 import { makeReusableTerminal, runCommand } from "./terminal";
+import { mockConsoleLog } from "./test-helpers";
 
 const mockTerminal = {
   show: jest.fn(),
@@ -11,14 +8,7 @@ const mockTerminal = {
 };
 
 describe("Terminal", () => {
-  let originalConsoleLog: typeof console.log;
-  beforeAll(() => {
-    originalConsoleLog = console.log;
-    console.log = jest.fn();
-  });
-  afterAll(() => {
-    console.log = originalConsoleLog;
-  });
+  mockConsoleLog();
   beforeEach(() => {
     jest.clearAllMocks();
   });

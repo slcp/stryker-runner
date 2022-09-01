@@ -1,3 +1,9 @@
+export class Uri {
+  path: string;
+  constructor(args: { path: string }) {
+    this.path = args.path;
+  }
+}
 export const mockGet = jest.fn();
 export const mockShowErrorMessage = jest.fn();
 export const mockOnDidCloseTerminal = jest.fn();
@@ -11,4 +17,5 @@ export const window = {
   showErrorMessage: mockShowErrorMessage,
   onDidCloseTerminal: mockOnDidCloseTerminal,
   createTerminal: mockCreateTerminal,
+  activeTextEditor: {},
 };

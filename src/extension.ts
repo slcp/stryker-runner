@@ -7,12 +7,12 @@ export function activate(context: vscode.ExtensionContext) {
 
   let runStrykerOnFile = vscode.commands.registerCommand(
     "stryker-runner.run-stryker-on-file",
-    (...args) => {
+    async (...args) => {
       if (!(args[0] instanceof vscode.Uri)) return;
       const file = args[0];
 
       if (isTestFile(file)) {
-        showInvalidFileMessage();
+        await showInvalidFileMessage();
         return;
       }
 
@@ -22,12 +22,12 @@ export function activate(context: vscode.ExtensionContext) {
 
   let runStrykerOnSelection = vscode.commands.registerCommand(
     "stryker-runner.run-stryker-on-selection",
-    (...args) => {
+    async (...args) => {
       if (!(args[0] instanceof vscode.Uri)) return;
       const file = args[0];
 
       if (isTestFile(file)) {
-        showInvalidFileMessage();
+        await showInvalidFileMessage();
         return;
       }
 

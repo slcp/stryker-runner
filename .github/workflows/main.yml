@@ -58,5 +58,5 @@ jobs:
       - name: Install packages
         run: yarn install --frozen-lockfile
 
-      - name: Unit tests
+      - name: Mutation tests
         run: yarn test:mutation

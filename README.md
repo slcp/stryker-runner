@@ -12,8 +12,8 @@ Stryker does facilitate the execution of mutation testing of single files and on
 
 ## Visual Studio Code Marketplace
 
-  - VisualStudio Marketplace - TBC
-  - Open VSX Registry - TBC
+- VisualStudio Marketplace - TBC
+- Open VSX Registry - TBC
 
 ## Features
 
@@ -27,8 +27,8 @@ Run Stryker tests against a selected block of code (line range) in the editor.
 
 Stryker Runner will work out of the box but there a few configurations that you may want to take advantage of:
 
-| Command                                                                         | Description                                                                                                                      |
-| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| strykerRunner.stryker.configFile                                                | Stryker config path (relative to ${workFolder} e.g. stryker-config-file.js). Stryker will attempt to auto-discover a settings file - https://stryker-mutator.io/docs/stryker-js/config-file/#usage                             |
-| strykerRunner.stryker.command                                                   | The command used to run Stryker, defaults to `[yarn\|npx] stryker`. This command should be able to have additional arguments appended to it.                                                                               |
-| strykerRunner.node.useYarn                                                      | Set to true if your project uses yarn.                                                                             |
+| Command                          | Description                                                                                                                                                                                        |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| strykerRunner.stryker.configFile | Stryker config path (relative to ${workFolder} e.g. stryker-config-file.js). Stryker will attempt to auto-discover a settings file - https://stryker-mutator.io/docs/stryker-js/config-file/#usage |
+| strykerRunner.stryker.command    | The command used to run Stryker, defaults to `[yarn\|npx] stryker`. This command should be able to have additional arguments appended to it.                                                       |
+| strykerRunner.node.useYarn       | Set to true if your project uses yarn.                                                                                                                                                             |

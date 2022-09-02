@@ -6,7 +6,7 @@ module.exports = {
     'src/**/*.ts',
     '!src/test/**/*'
   ],
-  coverageDirectory: './build/reports/coverage',
+  coverageDirectory: './reports/coverage',
   coverageThreshold: {
     global: {
       functions: 100,

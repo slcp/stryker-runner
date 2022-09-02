@@ -19,6 +19,7 @@ describe("Valid files", () => {
       "src/nest/config.unit.test.js",
       "src/nest/config.test.js",
       "src/nest/config.spec.js",
+      "src/nest/config.js.exe",
     ])("should validate the path '%s' as a test file", (path) => {
       expect(isTestFile({ path } as any)).toEqual(true);
     });
@@ -43,7 +44,9 @@ describe("Valid files", () => {
     it("should show an error message to the user", async () => {
       await showInvalidFileMessage();
 
-      expect(window.showErrorMessage).toHaveBeenCalled();
+      expect(window.showErrorMessage).toHaveBeenCalledWith(
+        "Cannot run Stryker on test files"
+      );
     });
   });
 });

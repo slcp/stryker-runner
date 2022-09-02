@@ -10,6 +10,13 @@ jest.mock("./stryker");
 jest.mock("./commands");
 
 const mockCommandRunner = commandRunner as jest.MockedFn<typeof commandRunner>;
+const mockRunStrykerOnFileCommand = runStrykerOnFileCommand as jest.MockedFn<
+  typeof runStrykerOnFileCommand
+>;
+const mockRunStrykerOnSelectionCommand =
+  runStrykerOnSelectionCommand as jest.MockedFn<
+    typeof runStrykerOnSelectionCommand
+  >;
 
 describe("Extension", () => {
   beforeEach(() => {
@@ -18,8 +25,18 @@ describe("Extension", () => {
   describe("Activate", () => {
     it("should register commands", () => {
       mockCommandRunner.mockReturnValue("command runner" as any);
-      mockRegisterCommand.mockReturnValueOnce("on file command" as any);
-      mockRegisterCommand.mockReturnValueOnce("on selection command" as any);
+      mockRunStrykerOnFileCommand.mockReturnValueOnce(
+        "run strkyer on file" as any
+      );
+      mockRunStrykerOnSelectionCommand.mockReturnValueOnce(
+        "run strkyer on selection" as any
+      );
+      mockRegisterCommand.mockReturnValueOnce(
+        "on file command registered" as any
+      );
+      mockRegisterCommand.mockReturnValueOnce(
+        "on selection command registered" as any
+      );
       const context = {
         subscriptions: {
           push: jest.fn(),
@@ -36,12 +53,20 @@ describe("Extension", () => {
         "command runner"
       );
       expect(commands.registerCommand).toHaveBeenCalledTimes(2);
+      expect(commands.registerCommand).toHaveBeenCalledWith(
+        "stryker-runner.run-stryker-on-file",
+        "run strkyer on file"
+      );
+      expect(commands.registerCommand).toHaveBeenCalledWith(
+        "stryker-runner.run-stryker-on-selection",
+        "run strkyer on selection"
+      );
       expect(context.subscriptions.push).toHaveBeenCalledTimes(2);
       expect(context.subscriptions.push).toHaveBeenCalledWith(
-        "on file command"
+        "on file command registered"
       );
       expect(context.subscriptions.push).toHaveBeenCalledWith(
-        "on selection command"
+        "on selection command registered"
       );
     });
   });

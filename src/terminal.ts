@@ -3,7 +3,8 @@ import * as vscode from "vscode";
 export const makeReusableTerminal = ({ name }: { name: string }) => {
   let terminal: vscode.Terminal | undefined;
   vscode.window.onDidCloseTerminal((t) => {
-    if (terminal && t.processId === terminal.processId) {
+    if (!terminal) return;
+    if (t.processId === terminal.processId) {
       console.log(`Stryker Runner's reusable terminal was closed`);
       terminal = undefined;
     }

@@ -37,7 +37,7 @@ describe("Terminal", () => {
       );
       expect(window.onDidCloseTerminal).toHaveBeenCalledTimes(1);
     });
-    it("should return the same terminal", () => {
+    it("should return the same terminal when no terminal has been closed", () => {
       const terminalFn = makeReusableTerminal({ name: "a terminal" });
       mockCreateTerminal.mockReturnValueOnce({ processId: 1 });
 
@@ -60,34 +60,81 @@ describe("Terminal", () => {
       );
       expect(terminal2.processId).toEqual(1);
     });
-    it("should create a new terminal if the old one has been closed", () => {
-      const terminalFn = makeReusableTerminal({ name: "a terminal" });
-      const terminalDidCloseCallback =
-        window.onDidCloseTerminal.mock.calls[0][0];
-      mockCreateTerminal.mockReturnValueOnce({ processId: 1 });
-      mockCreateTerminal.mockReturnValueOnce({ processId: 2 });
+    describe("With onDidCloseTerminal callback", () => {
+      it("should return the same terminal when an unknown terminal has been closed", () => {
+        const terminalFn = makeReusableTerminal({ name: "a terminal" });
+        const terminalDidCloseCallback =
+          window.onDidCloseTerminal.mock.calls[0][0];
+        mockCreateTerminal.mockReturnValueOnce({ processId: 1 });
 
-      const terminal = terminalFn();
+        const terminal = terminalFn();
 
-      expect(window.createTerminal).toHaveBeenCalledWith("a terminal");
-      expect(console.log).toHaveBeenCalledWith(
-        "Created a new reusable terminal for Stryker Runner"
-      );
-      expect(terminal.processId).toEqual(1);
+        expect(window.createTerminal).toHaveBeenCalledWith("a terminal");
+        expect(console.log).toHaveBeenCalledWith(
+          "Created a new reusable terminal for Stryker Runner"
+        );
+        expect(console.log).not.toHaveBeenCalledWith(
+          "Reusing terminal for Stryker Runner"
+        );
+        expect(terminal.processId).toEqual(1);
 
-      // Close the terminal that has just been opened
-      terminalDidCloseCallback({ processId: 1 });
-      expect(console.log).toHaveBeenCalledWith(
-        "Stryker Runner's reusable terminal was closed"
-      );
+        // Close the terminal that has just been opened
+        terminalDidCloseCallback({ processId: 2 });
 
-      const terminal2 = terminalFn();
+        const terminal2 = terminalFn();
 
-      expect(window.createTerminal).toHaveBeenCalledTimes(2);
-      expect(console.log).not.toHaveBeenCalledWith(
-        "Reusing terminal for Stryker Runner"
-      );
-      expect(terminal2.processId).toEqual(2);
+        expect(window.createTerminal).toHaveBeenCalledTimes(1);
+        expect(console.log).toHaveBeenCalledWith(
+          "Reusing terminal for Stryker Runner"
+        );
+        expect(terminal2.processId).toEqual(1);
+      });
+      it("should create a new terminal if the old one has been closed", () => {
+        const terminalFn = makeReusableTerminal({ name: "a terminal" });
+        const terminalDidCloseCallback =
+          window.onDidCloseTerminal.mock.calls[0][0];
+        mockCreateTerminal.mockReturnValueOnce({ processId: 1 });
+        mockCreateTerminal.mockReturnValueOnce({ processId: 2 });
+
+        const terminal = terminalFn();
+
+        expect(window.createTerminal).toHaveBeenCalledWith("a terminal");
+        expect(console.log).toHaveBeenCalledWith(
+          "Created a new reusable terminal for Stryker Runner"
+        );
+        expect(terminal.processId).toEqual(1);
+
+        // Close the terminal that has just been opened
+        terminalDidCloseCallback({ processId: 1 });
+        expect(console.log).toHaveBeenCalledWith(
+          "Stryker Runner's reusable terminal was closed"
+        );
+
+        const terminal2 = terminalFn();
+
+        expect(window.createTerminal).toHaveBeenCalledTimes(2);
+        expect(console.log).not.toHaveBeenCalledWith(
+          "Reusing terminal for Stryker Runner"
+        );
+        expect(terminal2.processId).toEqual(2);
+      });
+    });
+    describe("The onDidCloseTerminal callback", () => {
+      it("should do nothing if no terminal has been asked for", () => {
+        makeReusableTerminal({ name: "a terminal" });
+        const terminalDidCloseCallback =
+          window.onDidCloseTerminal.mock.calls[0][0];
+
+        // Trigger the callback
+        terminalDidCloseCallback({ processId: 1 });
+
+        expect(console.log).not.toHaveBeenCalledWith(
+          "Created a new reusable terminal for Stryker Runner"
+        );
+        expect(console.log).not.toHaveBeenCalledWith(
+          "Reusing terminal for Stryker Runner"
+        );
+      });
     });
   });
 });

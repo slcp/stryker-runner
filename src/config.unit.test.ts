@@ -32,5 +32,17 @@ describe("Config", () => {
       expect(mockGet).toHaveBeenCalledWith("strykerRunner.stryker.command");
       expect(res).toEqual("npx stryker");
     });
+    it("should return yarn command when useYarn is set to true", () => {
+      mockGet.mockImplementation((s: string) => {
+        if (s === "strykerRunner.node.useYarn") return true
+      })
+
+      const res = strykerCommand();
+
+      expect(workspace.getConfiguration).toHaveBeenCalledWith();
+      expect(mockGet).toHaveBeenCalledWith("strykerRunner.node.useYarn");
+      expect(mockGet).toHaveBeenCalledWith("strykerRunner.stryker.command");
+      expect(res).toEqual("yarn stryker");
+    });
   });
 });

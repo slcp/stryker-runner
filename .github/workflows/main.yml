@@ -25,6 +25,9 @@ jobs:
       - name: Lint
         run: yarn lint
 
+      - name: Prettier
+        run: yarn prettier:check
+
   unit-tests:
     name: Unit tests
     runs-on: ubuntu-latest

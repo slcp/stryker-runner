@@ -1,6 +1,6 @@
-import * as vscode from "vscode";
-import { CommandRunner } from "./stryker";
-import { isTestFile, showInvalidFileMessage } from "./valid-files";
+import * as vscode from 'vscode';
+import { CommandRunner } from './stryker';
+import { isTestFile, showInvalidFileMessage } from './valid-files';
 
 export const runStrykerOnFileCommand =
   (run: CommandRunner) =>
@@ -30,11 +30,11 @@ export const runStrykerOnSelectionCommand =
     const editor = vscode.window.activeTextEditor;
 
     if (!editor) {
-      console.log("No action, no active editor");
+      console.log('No action, no active editor');
       return;
     }
     if (editor.selection.isEmpty) {
-      console.log("No action, selection is single character");
+      console.log('No action, selection is single character');
       return;
     }
 

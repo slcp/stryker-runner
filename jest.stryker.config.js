@@ -5,7 +5,7 @@ const config = {
   testEnvironment: 'node',
   clearMocks: true,
   collectCoverage: false,
-  collectCoverageFrom: []
+  collectCoverageFrom: [],
 };
 
 module.exports = config;

@@ -1,0 +1,13 @@
+.*config
+.*ignore
+.adr-dir
+.nvmrc
+.yarnrc
+/.husky
+/.zap
+/reports
+.gitkeep
+/out
+/.vscode
+yarn.lock
+*.log

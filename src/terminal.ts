@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+import * as vscode from 'vscode';
 
 export const makeReusableTerminal = ({ name }: { name: string }) => {
   let terminal: vscode.Terminal | undefined;

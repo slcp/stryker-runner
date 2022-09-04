@@ -78,3 +78,43 @@ jobs:
 
       - name: Mutation tests
         run: yarn test:mutation
+
+  version-tag:
+    name: Version tag
+    runs-on: ubuntu-latest
+    needs: [lint, unit-tests, mutation-tests]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: Install packages
+        run: yarn install --frozen-lockfile
+
+      - name: Calculate semantic version
+        id: semantic-version
+        uses: paulhatch/semantic-version@v4.0.3
+        with:
+          tag_prefix: 'v'
+          major_pattern: '(MAJOR)'
+          minor_pattern: '(MINOR)'
+          format: '${major}.${minor}.${patch}'
+          bump_each_commit: false
+
+      - name: Cache VSIX extension package
+        id: vsix-package
+        uses: actions/cache@v3
+        env:
+          cache-name: vsix-cache
+        with:
+          path: ${{ github.workspace }}/stryker-runner-${{ steps.semantic-version.outputs.version_tag }}.vsix
+          key: ${{ env.cache-name }}-${{ steps.semantic-version.outputs.version_tag }}
+
+      - name: Package
+        run: npx vsce package ${{ steps.semantic-version.outputs.version_tag }} -m "[skip-ci packaged %s]"

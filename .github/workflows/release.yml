@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  github-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache VSIX extension package
+        id: vsix-package
+        uses: actions/cache@v3
+        env:
+          cache-name: vsix-cache
+        with:
+          path: ${{ github.workspace }}/stryker-runner-${{github.ref_name}}.vsix
+          key: ${{ env.cache-name }}-${{github.ref_name}}
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: stryker-runner-${{github.ref_name}}.vsix
+          fail_on_unmatched_files: true

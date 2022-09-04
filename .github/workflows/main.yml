@@ -115,5 +115,5 @@ jobs:
 
       - name: Tag
         run: |
-          yarn version --new-version --no-commit-hooks ${{ steps.semantic-version.outputs.version_tag }}
+          yarn version --new-version --no-commit-hooks ${{ steps.semantic-version.outputs.version }}
           git push origin ${{ steps.semantic-version.outputs.version_tag }} --no-verify

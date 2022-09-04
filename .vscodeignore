@@ -3,9 +3,12 @@
 src/**
 .gitignore
 .yarnrc
+.nvmrc
 vsc-extension-quickstart.md
 **/tsconfig.json
 **/.eslintrc.json
+*.config.js
 **/*.map
 **/*.ts
 __mocks__
+reports

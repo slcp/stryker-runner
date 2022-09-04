@@ -107,6 +107,11 @@ jobs:
           format: '${major}.${minor}.${patch}'
           bump_each_commit: false
 
+      - name: Setup git config
+        run: |
+          git config user.name "GitHub Actions Versioning Workflow"
+          git config user.email "<>"
+
       - name: Cache VSIX extension package
         id: vsix-package
         uses: actions/cache@v3
@@ -118,4 +123,6 @@ jobs:
           key: ${{ env.cache-name }}-${{ steps.semantic-version.outputs.version_tag }}
 
       - name: Package
-        run: npx vsce package ${{ steps.semantic-version.outputs.version_tag }} -m "[skip-ci packaged %s]"
+        run: |
+          npx vsce package ${{ steps.semantic-version.outputs.version_tag }} -m "[skip-ci packaged %s]"
+          git push

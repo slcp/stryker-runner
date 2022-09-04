@@ -112,6 +112,7 @@ jobs:
         uses: actions/cache@v3
         env:
           cache-name: vsix-cache
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         with:
           path: ${{ github.workspace }}/stryker-runner-${{ steps.semantic-version.outputs.version_tag }}.vsix
           key: ${{ env.cache-name }}-${{ steps.semantic-version.outputs.version_tag }}

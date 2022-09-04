@@ -4,7 +4,7 @@
   "description": "A VSCode extenstion to selectively run Stryker mutation tests against specific files or line ranges in files",
   "repository": "https://github.com/slcp/stryker-runner",
   "license": "MIT",
-  "version": "0.0.4",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.70.0"
   },

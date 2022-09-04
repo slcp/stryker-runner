@@ -125,4 +125,5 @@ jobs:
       - name: Package
         run: |
           npx vsce package ${{ steps.semantic-version.outputs.version_tag }} -m "[skip-ci packaged %s]"
-          git push
+          git push --no-verify
+          git push origin ${{ steps.semantic-version.outputs.version_tag }}

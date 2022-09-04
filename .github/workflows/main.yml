@@ -112,18 +112,7 @@ jobs:
           git config user.name "GitHub Actions Versioning Workflow"
           git config user.email "<>"
 
-      - name: Cache VSIX extension package
-        id: vsix-package
-        uses: actions/cache@v3
-        env:
-          cache-name: vsix-cache
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-        with:
-          path: ${{ github.workspace }}/stryker-runner-${{ steps.semantic-version.outputs.version_tag }}.vsix
-          key: ${{ env.cache-name }}-${{ steps.semantic-version.outputs.version_tag }}
-
-      - name: Package
+      - name: Tag
         run: |
-          npx vsce package ${{ steps.semantic-version.outputs.version_tag }} -m "[skip-ci packaged %s]"
-          git push --no-verify
-          git push origin ${{ steps.semantic-version.outputs.version_tag }}
+          git tag ${{ steps.semantic-version.outputs.version_tag }}
+          git push origin ${{ steps.semantic-version.outputs.version_tag }} --no-verify

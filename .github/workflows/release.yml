@@ -14,14 +14,16 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Cache VSIX extension package
-        id: vsix-package
-        uses: actions/cache@v3
-        env:
-          cache-name: vsix-cache
-        with:
-          path: ${{ github.workspace }}/stryker-runner-${{github.ref_name}}.vsix
-          key: ${{ env.cache-name }}-${{github.ref_name}}
+
+      - name: Setup git config
+        run: |
+          git config user.name "GitHub Actions Versioning Workflow"
+          git config user.email "<>"
+
+      - name: Package
+        run: |
+          npx vsce package ${{github.ref_name}} -m "[skip-ci packaged %s]"
+          git push --no-verify
 
       - name: Release
         uses: softprops/action-gh-release@v1

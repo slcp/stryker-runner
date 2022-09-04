@@ -30,7 +30,8 @@ jobs:
 
       - name: Package
         run: |
-          npx vsce package ${{github.ref_name}} -m "[skip-ci packaged %s]"
+          npx vsce package ${{github.ref_name}} --no-git-tag-version
+          git commit package.json -m "[skip-ci %s]"
           git push --no-verify
 
       - name: Release

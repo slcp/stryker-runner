@@ -1,4 +1,4 @@
-name: Release
+name: Launch the rocket!
 
 on:
   workflow_dispatch:
@@ -8,6 +8,7 @@ on:
 
 jobs:
   github-release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

@@ -1,4 +1,4 @@
-name: Launch the rocket!
+name: Prep the rocket!
 
 on:
   workflow_dispatch:
@@ -106,14 +106,17 @@ jobs:
           major_pattern: '(MAJOR)'
           minor_pattern: '(MINOR)'
           format: '${major}.${minor}.${patch}'
+          change_path: src/ yarn.lock tsconfig.json .vscodeignore
           bump_each_commit: false
 
       - name: Setup git config
+        if: steps.semantic-version.outputs.version == true
         run: |
           git config user.name "GitHub Actions Versioning Workflow"
           git config user.email "<>"
 
       - name: Tag
+        if: steps.semantic-version.outputs.version == true
         run: |
           yarn version --new-version ${{ steps.semantic-version.outputs.version }}
           git push origin ${{ steps.semantic-version.outputs.version_tag }} --no-verify

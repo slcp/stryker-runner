@@ -15,6 +15,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: Install packages
+        run: yarn install --frozen-lockfile
+
       - name: Setup git config
         run: |
           git config user.name "GitHub Actions Versioning Workflow"

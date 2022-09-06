@@ -9,16 +9,16 @@ on:
 jobs:
   check-skip-commmit:
     runs-on: ubuntu-latest
-    name: "Check commit should be skipped"
+    name: 'Check commit should be skipped'
     steps:
       - name: Check
         run: |
           REGEX="^v\d\.\d\.\d$"
           COMMIT_MSG="${{ github.event.head_commit.message }}"
           echo $COMMIT_MSG | grep -iqE "$REGEX"
-  
+
   lint:
-    if: steps.check-skip-commmit.outcome == 'success'  
+    if: steps.check-skip-commmit.outcome == 'success'
     name: Lint
     runs-on: ubuntu-latest
     steps:

@@ -18,7 +18,7 @@ jobs:
           echo $COMMIT_MSG | grep -iqE "$REGEX"
 
   lint:
-    if: jobs.check-skip-commmit.outcome == 'success'
+    needs: ['check-skip-commmit']
     name: Lint
     runs-on: ubuntu-latest
     steps:
@@ -41,7 +41,7 @@ jobs:
 
   unit-tests:
     name: Unit tests
-    if: steps.check-skip-commmit.outcome == 'success'
+    needs: ['check-skip-commmit']
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -60,7 +60,7 @@ jobs:
 
   mutation-tests:
     name: Mutation tests
-    if: steps.check-skip-commmit.outcome == 'success'
+    needs: ['check-skip-commmit']
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

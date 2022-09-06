@@ -9,6 +9,7 @@ on:
 jobs:
   check-skip-commmit:
     runs-on: ubuntu-latest
+    name: "Check commit should be skipped"
     steps:
       - name: Check
         run: |

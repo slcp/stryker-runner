@@ -10,10 +10,10 @@ jobs:
   check-skip-commmit:
     runs-on: ubuntu-latest
     steps:
-      run: |
-        REGEX="^v\d\.\d\.\d$"
-        COMMIT_MSG="${{ github.event.head_commit.message }}"
-        echo $COMMIT_MSG | grep -iqE "$REGEX"
+      - run: |
+          REGEX="^v\d\.\d\.\d$"
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          echo $COMMIT_MSG | grep -iqE "$REGEX"
   
   lint:
     if: steps.check-skip-commmit.outcome == 'success'  

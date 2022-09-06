@@ -7,7 +7,15 @@ on:
       - main
 
 jobs:
+  check-skip-commmit:
+    runs-on: ubuntu-latest
+    run: |
+      REGEX="^v\d\.\d\.\d$"
+      COMMIT_MSG="${{ github.event.head_commit.message }}"
+      echo $COMMIT_MSG | grep -iqE "$REGEX"
+  
   lint:
+    if: steps.check-skip-commmit.outcome == 'success'  
     name: Lint
     runs-on: ubuntu-latest
     steps:
@@ -30,6 +38,7 @@ jobs:
 
   unit-tests:
     name: Unit tests
+    if: steps.check-skip-commmit.outcome == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -48,6 +57,7 @@ jobs:
 
   mutation-tests:
     name: Mutation tests
+    if: steps.check-skip-commmit.outcome == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -106,7 +116,7 @@ jobs:
           major_pattern: '(MAJOR)'
           minor_pattern: '(MINOR)'
           format: '${major}.${minor}.${patch}'
-          change_path: src/ yarn.lock tsconfig.json .vscodeignore
+          # change_path: src/ yarn.lock tsconfig.json .vscodeignore
           bump_each_commit: false
 
       - name: Setup git config
@@ -118,5 +128,7 @@ jobs:
       - name: Tag
         if: steps.semantic-version.outputs.version == true
         run: |
-          yarn version --new-version ${{ steps.semantic-version.outputs.version }}
-          git push origin ${{ steps.semantic-version.outputs.version_tag }} --no-verify
+          export VERSION=${{ steps.semantic-version.outputs.version }}
+          yarn version --new-version "${VERSION:1}"
+          git push --no-verify
+          git push origin "${VERSION}" --no-verify

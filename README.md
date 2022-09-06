@@ -10,8 +10,9 @@ There is a lot of value in mutation testing your projects and for Javascript bas
 
 Stryker does facilitate the execution of mutation testing of single files and on specific line ranges and the original idea of this extension was to surface this functionality into the VSCode workflow for developers.
 
-## Visual Studio Code Marketplace
+## Where can I get it?
 
+- [VSIX Package](https://github.com/slcp/stryker-runner/releases)
 - VisualStudio Marketplace - TBC
 - Open VSX Registry - TBC
 
@@ -21,7 +22,9 @@ Run Stryker tests against a specific file from:
 
 - Context Menu
 
-Run Stryker tests against a selected block of code (line range) in the editor.
+Run Stryker tests against a selected block of code (line range) in the editor from:
+
+- Context Menu
 
 ## Extension Settings
 

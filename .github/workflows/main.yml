@@ -120,7 +120,7 @@ jobs:
           minor_pattern: '(MINOR)'
           format: '${major}.${minor}.${patch}'
           # change_path: src/ yarn.lock tsconfig.json .vscodeignore
-          bump_each_commit: false
+          bump_each_commit: true
 
       - name: Setup git config
         if: steps.semantic-version.outputs.changed

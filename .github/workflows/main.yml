@@ -18,7 +18,7 @@ jobs:
           echo $COMMIT_MSG | grep -iqE "$REGEX"
 
   lint:
-    if: steps.check-skip-commmit.outcome == 'success'
+    if: jobs.check-skip-commmit.outcome == 'success'
     name: Lint
     runs-on: ubuntu-latest
     steps:

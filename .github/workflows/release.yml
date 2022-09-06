@@ -31,7 +31,8 @@ jobs:
 
       - name: Package
         run: |
-          npx vsce package ${{github.ref_name}} --no-git-tag-version --no-update-package-json
+          VERSION=${{github.ref_name}}
+          npx vsce package "${VERSION:1}" --no-git-tag-version --no-update-package-json
 
       - name: Release to Github
         uses: softprops/action-gh-release@v1
@@ -42,4 +43,6 @@ jobs:
       - name: Release to VSCode Marketplace
         env:
           VSCE_PAT: ${{ secrets.VCSE_PAT_TOKEN }}
-        run: npx vsce publish --no-git-tag-version --no-update-package-json -i stryker-runner-${{github.ref_name}}.vsix
+        run: |
+          VERSION=${{github.ref_name}}
+          npx vsce publish --no-git-tag-version --no-update-package-json -i "stryker-runner-${VERSION:1}.vsix"

@@ -123,13 +123,13 @@ jobs:
           bump_each_commit: false
 
       - name: Setup git config
-        if: steps.semantic-version.outputs.changed == true
+        if: steps.semantic-version.outputs.changed
         run: |
           git config user.name "GitHub Actions Versioning Workflow"
           git config user.email "<>"
 
       - name: Tag
-        if: steps.semantic-version.outputs.changed == true
+        if: steps.semantic-version.outputs.changed
         run: |
           export VERSION=${{ steps.semantic-version.outputs.version }}
           yarn version --new-version "${VERSION:1}"

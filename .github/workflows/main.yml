@@ -10,7 +10,8 @@ jobs:
   check-skip-commmit:
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - name: Check
+        run: |
           REGEX="^v\d\.\d\.\d$"
           COMMIT_MSG="${{ github.event.head_commit.message }}"
           echo $COMMIT_MSG | grep -iqE "$REGEX"

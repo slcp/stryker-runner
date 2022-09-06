@@ -29,20 +29,22 @@ jobs:
           git config user.name "GitHub Actions Versioning Workflow"
           git config user.email "<>"
 
-      - name: Package
+      - name: Make version
+        id: make-version
         run: |
           VERSION=${{github.ref_name}}
-          npx vsce package "${VERSION:1}" --no-git-tag-version --no-update-package-json
+          echo "::set-output name=VERSION::${VERSION:1}"
+
+      - name: Package
+        run: npx vsce package ${{ steps.make-version.outputs.VERSION }} --no-git-tag-version --no-update-package-json
 
       - name: Release to Github
         uses: softprops/action-gh-release@v1
         with:
-          files: stryker-runner-${{github.ref_name}}.vsix
+          files: stryker-runner-${{ steps.make-version.outputs.VERSION }}.vsix
           fail_on_unmatched_files: true
 
       - name: Release to VSCode Marketplace
         env:
           VSCE_PAT: ${{ secrets.VCSE_PAT_TOKEN }}
-        run: |
-          VERSION=${{github.ref_name}}
-          npx vsce publish --no-git-tag-version --no-update-package-json -i "stryker-runner-${VERSION:1}.vsix"
+        run: npx vsce publish --no-git-tag-version --no-update-package-json -i "stryker-runner-${{ steps.make-version.outputs.VERSION }}.vsix"

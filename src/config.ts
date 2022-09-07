@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 export const strykerCommand = (): string => {
-  const defaultCommand = useYarn() ? `yarn stryker` : `npx stryker`;
+  const defaultCommand = useYarn() ? `yarn stryker` : `npx --no-install stryker`;
   return vscode.workspace.getConfiguration().get('strykerRunner.stryker.command') || defaultCommand;
 };
 

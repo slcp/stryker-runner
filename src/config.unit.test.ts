@@ -30,7 +30,7 @@ describe('Config', () => {
       expect(workspace.getConfiguration).toHaveBeenCalledWith();
       expect(mockGet).toHaveBeenCalledWith('strykerRunner.node.useYarn');
       expect(mockGet).toHaveBeenCalledWith('strykerRunner.stryker.command');
-      expect(res).toEqual('npx stryker');
+      expect(res).toEqual('npx --no-install stryker');
     });
     it('should return yarn command when useYarn is set to true', () => {
       mockGet.mockImplementation((s: string) => {

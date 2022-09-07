@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: main
 
       - uses: actions/setup-node@v3
         with:
@@ -32,11 +33,13 @@ jobs:
       - name: Make version
         id: make-version
         run: |
-          VERSION=${{github.ref_name}}
+          VERSION=${{ github.ref_name }}
           echo "::set-output name=VERSION::${VERSION:1}"
 
       - name: Package
-        run: npx vsce package ${{ steps.make-version.outputs.VERSION }} --no-git-tag-version --no-update-package-json
+        run: |
+          npx vsce package ${{ steps.make-version.outputs.VERSION }} -m "[skip ci v%s]"
+          git push --no-verify
 
       - name: Release to Github
         uses: softprops/action-gh-release@v1

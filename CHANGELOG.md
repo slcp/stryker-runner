@@ -6,6 +6,11 @@ All notable changes to the "stryker-runner" extension will be documented in this
 
 - Run `npx` with `--no-install` as default to ensure that Stryker is available locally
 
+## [v0.0.37](https://github.com/slcp/stryker-runner/compare/v0.0.4...v0.0.37)
+
+- A bit of messy release :(
+- Version change to release to the VSCode Extension Marketplace
+
 ## [v0.0.4](https://github.com/slcp/stryker-runner/compare/v0.0.3...v0.0.4)
 
 - Added deployment of `vsix` package to Github Releases

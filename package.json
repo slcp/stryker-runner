@@ -86,9 +86,9 @@
     "test:mutation:full": "yarn stryker run"
   },
   "devDependencies": {
-    "@stryker-mutator/core": "6.2.0-beta.0",
-    "@stryker-mutator/jest-runner": "6.1.2",
-    "@stryker-mutator/typescript-checker": "6.1.2",
+    "@stryker-mutator/core": "6.2.2",
+    "@stryker-mutator/jest-runner": "6.2.2",
+    "@stryker-mutator/typescript-checker": "6.2.2",
     "@types/glob": "7.2.0",
     "@types/jest": "28.1.8",
     "@types/node": "16.x",

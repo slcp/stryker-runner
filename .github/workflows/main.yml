@@ -68,7 +68,7 @@ jobs:
         env:
           cache-name: stryker-incremental-output
         with:
-          path: ${{ github.workspace }}/reports/.mutation-incremental.json
+          path: ${{ github.workspace }}/reports/stryker-incremental.json
           key: ${{ env.cache-name }}-${{ steps.branch-name.outputs.current_branch }}-${{ github.run_id }}
           restore-keys: |
             ${{ env.cache-name }}-${{ steps.branch-name.outputs.current_branch }}-

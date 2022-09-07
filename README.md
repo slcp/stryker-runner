@@ -28,7 +28,7 @@ Run Stryker tests against a selected block of code (line range) in the editor fr
 
 ## Extension Settings
 
-Stryker Runner will work out of the box but there a few configurations that you may want to take advantage of:
+Stryker Runner will work out of the box but there are a few configurations that you may want to take advantage of:
 
 | Command                          | Description                                                                                                                                                                                        |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

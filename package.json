@@ -38,14 +38,15 @@
     "menus": {
       "explorer/context": [
         {
-          "when": "resourceExtname =~ /\\.[tj]s/",
           "command": "stryker-runner.run-stryker-on-file",
+          "when": "resourceExtname =~ /\\.[tj]s/",
           "group": "3_compare"
         }
       ],
       "editor/context": [
         {
           "command": "stryker-runner.run-stryker-on-selection",
+          "when": "editorHasSelection == true",
           "group": "02_stryker"
         }
       ]

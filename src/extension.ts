@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { StrykerRunnerCodeLensProvider } from './code-lens';
 import { runStrykerOnFileCommand, runStrykerOnSelectionCommand } from './commands';
 import { commandRunner } from './stryker';
 
@@ -14,6 +15,19 @@ export function activate(context: vscode.ExtensionContext) {
     'stryker-runner.run-stryker-on-selection',
     runStrykerOnSelectionCommand(run)
   );
+
+  vscode.workspace. ((d) => {
+    d.uri.
+  )
+  const codeLensProvider = new StrykerRunnerCodeLensProvider();
+  const codeLensProviderDisposable = vscode.languages.registerCodeLensProvider(
+    [
+      { language: 'typescript', scheme: 'file' },
+      { language: 'javascript', scheme: 'file' },
+    ],
+    codeLensProvider
+  );
+  context.subscriptions.push(codeLensProviderDisposable);
 
   context.subscriptions.push(runStrykerOnFile);
   context.subscriptions.push(runStrykerOnSelection);

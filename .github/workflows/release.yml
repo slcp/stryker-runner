@@ -39,6 +39,7 @@ jobs:
       - name: Package
         run: |
           npx vsce package ${{ steps.make-version.outputs.VERSION }} -m "[skip ci v%s]"
+          git tag -d ${{ steps.make-version.outputs.VERSION }}
           git push --no-verify
 
       - name: Release to Github

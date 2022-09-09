@@ -4,6 +4,9 @@ All notable changes to the "stryker-runner" extension will be documented in this
 
 ## [Unreleased]
 
+- Take extension out of preview
+- Activate extension when user has shown intent, onCommand instead of on boot of VSCode
+
 ## [v0.0.37](https://github.com/slcp/stryker-runner/compare/v0.0.37...v0.0.38)
 
 - Run `npx` with `--no-install` as default to ensure that Stryker is available locally

@@ -61,7 +61,6 @@
       },
       "strykerRunner.stryker.command": {
         "type": "string",
-        "default": "npx stryker",
         "description": "The command to invoke Stryker"
       },
       "strykerRunner.node.useYarn": {

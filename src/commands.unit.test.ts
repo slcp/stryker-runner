@@ -9,6 +9,9 @@ const mockIsTestFile = isTestFile as jest.MockedFn<typeof isTestFile>;
 
 describe('Commands', () => {
   mockConsoleLog();
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
   describe('Run Stryker on file', () => {
     it('should return a function', () => {
       expect(runStrykerOnFileCommand(jest.fn())).toEqual(expect.any(Function));
@@ -28,18 +31,20 @@ describe('Commands', () => {
 
       await runStrykerOnFileCommand(run)(new Uri({ path: 'x.test.ts' }));
 
+      console.log((isTestFile as jest.Mock).mock.calls);
+
       expect(run).not.toHaveBeenCalled();
-      expect(isTestFile).toHaveBeenCalledWith({ path: 'x.test.ts' });
+      expect(isTestFile).toHaveBeenCalledWith(expect.objectContaining({ path: 'x.test.ts' }));
       expect(showInvalidFileMessage).toHaveBeenCalledWith();
     });
-    it('should show run a command if the file is not a test file', async () => {
+    it('should run a command if the file is not a test file', async () => {
       const run = jest.fn();
       mockIsTestFile.mockReturnValue(false);
 
-      await runStrykerOnFileCommand(run)(new Uri({ path: 'x.test.ts' }));
+      await runStrykerOnFileCommand(run)(new Uri({ path: 'x.ts' }));
 
-      expect(run).toHaveBeenCalledWith({ path: 'x.test.ts' });
-      expect(isTestFile).toHaveBeenCalledWith({ path: 'x.test.ts' });
+      expect(run).toHaveBeenCalledWith({ file: expect.objectContaining({ path: 'x.ts' }) });
+      expect(isTestFile).toHaveBeenCalledWith(expect.objectContaining({ path: 'x.ts' }));
       expect(showInvalidFileMessage).not.toHaveBeenCalledWith();
     });
   });
@@ -63,7 +68,7 @@ describe('Commands', () => {
       await runStrykerOnSelectionCommand(run)(new Uri({ path: 'x.test.ts' }));
 
       expect(run).not.toHaveBeenCalled();
-      expect(isTestFile).toHaveBeenCalledWith({ path: 'x.test.ts' });
+      expect(isTestFile).toHaveBeenCalledWith(expect.objectContaining({ path: 'x.test.ts' }));
       expect(showInvalidFileMessage).toHaveBeenCalledWith();
     });
     it('should do nothing if there is no active editor', async () => {
@@ -74,7 +79,7 @@ describe('Commands', () => {
       await runStrykerOnSelectionCommand(run)(new Uri({ path: 'x.ts' }));
 
       expect(run).not.toHaveBeenCalled();
-      expect(isTestFile).toHaveBeenCalledWith({ path: 'x.ts' });
+      expect(isTestFile).toHaveBeenCalledWith(expect.objectContaining({ path: 'x.ts' }));
       expect(showInvalidFileMessage).not.toHaveBeenCalled();
       expect(console.log).toHaveBeenCalledWith('No action, no active editor');
     });
@@ -86,7 +91,7 @@ describe('Commands', () => {
       await runStrykerOnSelectionCommand(run)(new Uri({ path: 'x.ts' }));
 
       expect(run).not.toHaveBeenCalled();
-      expect(isTestFile).toHaveBeenCalledWith({ path: 'x.ts' });
+      expect(isTestFile).toHaveBeenCalledWith(expect.objectContaining({ path: 'x.ts' }));
       expect(showInvalidFileMessage).not.toHaveBeenCalled();
       expect(console.log).toHaveBeenCalledWith('No action, selection is single character');
     });
@@ -99,8 +104,8 @@ describe('Commands', () => {
 
       await runStrykerOnSelectionCommand(run)(new Uri({ path: 'x.ts' }));
 
-      expect(run).toHaveBeenCalledWith({ path: 'x.ts', lineRange: '5-7' });
-      expect(isTestFile).toHaveBeenCalledWith({ path: 'x.ts' });
+      expect(run).toHaveBeenCalledWith({ file: expect.objectContaining({ path: 'x.ts' }), lineRange: '5-7' });
+      expect(isTestFile).toHaveBeenCalledWith(expect.objectContaining({ path: 'x.ts' }));
       expect(showInvalidFileMessage).not.toHaveBeenCalled();
     });
   });

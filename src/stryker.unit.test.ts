@@ -1,3 +1,4 @@
+import { Uri } from '../__mocks__/vscode';
 import { strykerCommand, strykerConfigFilePath } from './config';
 import { commandRunner } from './stryker';
 import { makeReusableTerminal, runCommand } from './terminal';
@@ -31,7 +32,7 @@ describe('Stryker', () => {
         mockStrykerCommand.mockReturnValueOnce('a command');
         mockStrykerConfigFilePath.mockReturnValueOnce('a path');
 
-        commandRunner()({ path: '/path/to/file', lineRange: '1-10' });
+        commandRunner()({ file: new Uri({ path: '/path/to/file' }), lineRange: '1-10' });
 
         expect(makeReusableTerminal).toHaveBeenCalledWith({ name: 'Stryker' });
         expect(strykerCommand).toHaveBeenCalled();
@@ -44,7 +45,7 @@ describe('Stryker', () => {
         mockTerminal.mockReturnValueOnce('a terminal');
         mockStrykerCommand.mockReturnValueOnce('a command');
 
-        commandRunner()({ path: '/path/to/file', lineRange: '1-10' });
+        commandRunner()({ file: new Uri({ path: '/path/to/file' }), lineRange: '1-10' });
 
         expect(makeReusableTerminal).toHaveBeenCalledWith({ name: 'Stryker' });
         expect(strykerCommand).toHaveBeenCalled();
@@ -57,7 +58,7 @@ describe('Stryker', () => {
         mockTerminal.mockReturnValueOnce('a terminal');
         mockStrykerCommand.mockReturnValueOnce('a command');
 
-        commandRunner()({ path: '/path/to/file' });
+        commandRunner()({ file: new Uri({ path: '/path/to/file' }) });
 
         expect(makeReusableTerminal).toHaveBeenCalledWith({ name: 'Stryker' });
         expect(strykerCommand).toHaveBeenCalled();

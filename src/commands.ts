@@ -13,7 +13,7 @@ export const runStrykerOnFileCommand =
       return;
     }
 
-    run({ path: file.path });
+    run({ file });
   };
 
 export const runStrykerOnSelectionCommand =
@@ -45,5 +45,5 @@ export const runStrykerOnSelectionCommand =
     const endLine = end.line + 1; // Need to offset, why? Jest extension does this also. Zero indexed?
     const lineRange = `${startLine}-${endLine}`;
 
-    run({ path: file.path, lineRange });
+    run({ file, lineRange });
   };

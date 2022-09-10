@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Stryker Runner is a [Visual Studio Code](https://code.visualstudio.com) Extention that is intended to allow users to easily and selectively run Stryker mutation tests against (currently) Javascript and Typescript projects.
+Stryker Runner is a [Visual Studio Code](https://code.visualstudio.com) Extension that is intended to allow users to easily and selectively run Stryker mutation tests against (currently) Javascript and Typescript projects.
 
 ## Why bother with it?
 

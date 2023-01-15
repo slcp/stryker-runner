@@ -14,7 +14,7 @@ Stryker does facilitate the execution of mutation testing of single files and on
 
 - [VSIX Package](https://github.com/slcp/stryker-runner/releases)
 - [VisualStudio Marketplace](https://marketplace.visualstudio.com/items?itemName=pixabelle.stryker-runner)
-- Open VSX Registry - TBC
+- [Open VSX Registry](https://open-vsx.org/extension/pixabelle/stryker-runner)
 
 ## Features
 

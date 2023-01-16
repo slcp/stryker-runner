@@ -87,7 +87,7 @@
   },
   "devDependencies": {
     "@stryker-mutator/core": "6.2.3",
-    "@stryker-mutator/jest-runner": "6.2.2",
+    "@stryker-mutator/jest-runner": "6.2.3",
     "@stryker-mutator/typescript-checker": "6.2.3",
     "@types/glob": "8.0.0",
     "@types/jest": "29.2.0",

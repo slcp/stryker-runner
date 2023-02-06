@@ -53,3 +53,8 @@ jobs:
         env:
           VSCE_PAT: ${{ secrets.VCSE_PAT_TOKEN }}
         run: npx vsce publish --no-git-tag-version --no-update-package-json -i "stryker-runner-${{ steps.make-version.outputs.VERSION }}.vsix"
+
+      - name: Release to OpenVSX
+        env:
+          VSCE_PAT: ${{ secrets.OVSX_PAT_TOKEN }}
+        run: npx ovsx publish -i "stryker-runner-${{ steps.make-version.outputs.VERSION }}.vsix" -p $VCSE_PAT

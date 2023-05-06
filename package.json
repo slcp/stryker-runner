@@ -81,7 +81,7 @@
     "prettier:check": "prettier \"./**/*\" --check --no-editorconfig",
     "lint": "eslint src --max-warnings 0 --ext ts",
     "test": "node ./out/test/runTest.js",
-    "test:unit": "yarn jest '(?<=.unit).test.ts$' --coverage",
+    "test:unit": "yarn jest \"(?<=.unit).test.ts$\" --coverage",
     "test:mutation": "yarn stryker run --incremental",
     "test:mutation:full": "yarn stryker run"
   },

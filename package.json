@@ -58,7 +58,7 @@
       "strykerRunner.stryker.configFile": {
         "type": "string",
         "default": null,
-        "description": "Path to a non-standard stryker config file, see: https://stryker-mutator.io/docs/stryker-js/config-file/#usage"
+        "description": "Path to a non-standard Stryker config file, see: https://stryker-mutator.io/docs/stryker-js/config-file/#usage"
       },
       "strykerRunner.stryker.command": {
         "type": "string",
@@ -67,7 +67,7 @@
       "strykerRunner.node.useYarn": {
         "type": "boolean",
         "default": "false",
-        "description": "Use yarn instead of npm to run strker commands"
+        "description": "Use yarn instead of npm to run Stryker commands"
       }
     }
   },

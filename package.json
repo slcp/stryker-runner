@@ -5,7 +5,7 @@
   "repository": "https://github.com/slcp/stryker-runner",
   "publisher": "pixabelle",
   "license": "MIT",
-  "version": "0.0.40",
+  "version": "0.0.41",
   "engines": {
     "vscode": "^1.70.0"
   },
@@ -57,7 +57,7 @@
         "strykerRunner.stryker.configFile": {
           "type": "string",
           "default": null,
-          "description": "Path to a non-standard stryker config file, see: https://stryker-mutator.io/docs/stryker-js/config-file/#usage"
+          "description": "Path to a non-standard Stryker config file, see: https://stryker-mutator.io/docs/stryker-js/config-file/#usage"
         },
         "strykerRunner.stryker.command": {
           "type": "string",
@@ -66,7 +66,7 @@
         "strykerRunner.node.useYarn": {
           "type": "boolean",
           "default": "false",
-          "description": "Use yarn instead of npm to run strker commands"
+          "description": "Use yarn instead of npm to run Stryker commands"
         }
       }
     }
@@ -93,16 +93,16 @@
     "@types/jest": "29.5.0",
     "@types/node": "16.x",
     "@types/vscode": "1.70.0",
-    "@typescript-eslint/eslint-plugin": "5.54.1",
+    "@typescript-eslint/eslint-plugin": "5.59.2",
     "@vscode/test-electron": "2.2.3",
-    "@typescript-eslint/parser": "5.55.0",
-    "eslint": "8.36.0",
-    "glob": "9.3.0",
+    "@typescript-eslint/parser": "5.59.2",
+    "eslint": "8.40.0",
+    "glob": "10.2.2",
     "husky": "8.0.3",
     "jest": "29.5.0",
-    "lint-staged": "13.2.0",
-    "prettier": "2.8.4",
-    "ts-jest": "29.0.5",
-    "typescript": "5.0.2"
+    "lint-staged": "13.2.2",
+    "prettier": "2.8.8",
+    "ts-jest": "29.1.0",
+    "typescript": "5.0.4"
   }
 }

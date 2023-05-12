@@ -1,3 +1,5 @@
+import path from 'path';
+
 export class Uri {
   path: string;
   scheme: string;
@@ -14,7 +16,7 @@ export class Uri {
     this.authority = '';
     this.query = '';
     this.fragment = '';
-    this.fsPath = '';
+    this.fsPath = path.resolve(args.path);
     this.with = jest.fn();
     this.toJSON = jest.fn();
   }

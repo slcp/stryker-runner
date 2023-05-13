@@ -50,24 +50,24 @@
           "group": "02_stryker"
         }
       ]
-    }
-  },
-  "configuration": {
-    "title": "Stryker Runner",
-    "properties": {
-      "strykerRunner.stryker.configFile": {
-        "type": "string",
-        "default": null,
-        "description": "Path to a non-standard Stryker config file, see: https://stryker-mutator.io/docs/stryker-js/config-file/#usage"
-      },
-      "strykerRunner.stryker.command": {
-        "type": "string",
-        "description": "The command to invoke Stryker"
-      },
-      "strykerRunner.node.useYarn": {
-        "type": "boolean",
-        "default": "false",
-        "description": "Use yarn instead of npm to run Stryker commands"
+    },
+    "configuration": {
+      "title": "Stryker Runner",
+      "properties": {
+        "strykerRunner.stryker.configFile": {
+          "type": "string",
+          "default": null,
+          "description": "Path to a non-standard Stryker config file, see: https://stryker-mutator.io/docs/stryker-js/config-file/#usage"
+        },
+        "strykerRunner.stryker.command": {
+          "type": "string",
+          "description": "The command to invoke Stryker"
+        },
+        "strykerRunner.node.useYarn": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Use yarn instead of npm to run Stryker commands"
+        }
       }
     }
   },
@@ -81,7 +81,7 @@
     "prettier:check": "prettier \"./**/*\" --check --no-editorconfig",
     "lint": "eslint src --max-warnings 0 --ext ts",
     "test": "node ./out/test/runTest.js",
-    "test:unit": "yarn jest '(?<=.unit).test.ts$' --coverage",
+    "test:unit": "yarn jest \"(?<=.unit).test.ts$\" --coverage",
     "test:mutation": "yarn stryker run --incremental",
     "test:mutation:full": "yarn stryker run"
   },

@@ -9,9 +9,8 @@ const getRelativePath = (file: vscode.Uri): string => {
   const workspaceFolder = vscode.workspace.getWorkspaceFolder(file);
   if (workspaceFolder) {
     return path.relative(workspaceFolder.uri.fsPath, file.fsPath);
-  } else {
-    return file.fsPath;
   }
+  return file.fsPath;
 };
 
 const makeCommand = (file: vscode.Uri, lineRange?: string) => {

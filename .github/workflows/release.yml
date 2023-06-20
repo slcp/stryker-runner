@@ -26,9 +26,12 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Setup git config
+        env:
+          PAT: ${{ secrets.PAT }}
         run: |
           git config user.name "GitHub Actions Versioning Workflow"
           git config user.email "<>"
+          git remote add origin https://$PAT@github.com/slcp/stryker-runner.git
 
       - name: Make version
         id: make-version

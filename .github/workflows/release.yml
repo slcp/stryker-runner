@@ -34,7 +34,7 @@ jobs:
         id: make-version
         run: |
           VERSION=${{ github.ref_name }}
-          echo "::set-output name=VERSION::${VERSION:1}"
+          echo "VERSION=${VERSION:1}" >> $GITHUB_OUTPUT
 
       - name: Package
         run: |

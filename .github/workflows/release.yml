@@ -39,9 +39,6 @@ jobs:
       - name: Package
         run: |
           npx vsce package ${{ steps.make-version.outputs.VERSION }}  --no-git-tag-version
-          git add package.json
-          git commit -m "[skip ci v${{ steps.make-version.outputs.VERSION }}]" --no-verify
-          git push --no-verify
 
       - name: Release to Github
         uses: softprops/action-gh-release@v1
@@ -58,3 +55,9 @@ jobs:
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT_TOKEN }}
         run: npx ovsx publish -i "stryker-runner-${{ steps.make-version.outputs.VERSION }}.vsix"
+
+      - name: Update package.json
+        run: |
+          git add package.json
+          git commit -m "[skip ci v${{ steps.make-version.outputs.VERSION }}]" --no-verify
+          git push --no-verify

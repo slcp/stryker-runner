@@ -4,10 +4,13 @@ All notable changes to the "stryker-runner" extension will be documented in this
 
 ## [Unreleased]
 
+## [v0.0.42](https://github.com/slcp/stryker-runner/compare/v0.0.41...v0.0.42)
+
 - Pass relative path within the Workspace to Stryker command to support Windows ([Issue](https://github.com/slcp/stryker-runner/issues/183))
   - Thanks to [@alexchapar](https://github.com/alexchapar)
 - Update `husky` scripts to support Windows ([Issue](https://github.com/slcp/stryker-runner/issues/183))
   - Thanks to [@alexchapar](https://github.com/alexchapar)
+- Update dependencies
 
 ## [v0.0.41](https://github.com/slcp/stryker-runner/compare/v0.0.40...v0.0.41)
 

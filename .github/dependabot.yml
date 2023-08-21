@@ -9,3 +9,5 @@ updates:
     versioning-strategy: increase
     ignore:
       - dependency-name: '@types/vscode'
+      - dependency-name: '@types/node'
+        update-types: 'version-update:semver-major'

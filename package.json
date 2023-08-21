@@ -83,7 +83,8 @@
     "test": "node ./out/test/runTest.js",
     "test:unit": "yarn jest \"(?<=.unit).test.ts$\" --coverage",
     "test:mutation": "yarn stryker run --incremental",
-    "test:mutation:full": "yarn stryker run"
+    "test:mutation:full": "yarn stryker run",
+    "test:integration": "tsc -p ./ && node ./out/src/test/runTest.js"
   },
   "devDependencies": {
     "@stryker-mutator/core": "6.2.3",
@@ -94,12 +95,12 @@
     "@types/node": "16.x",
     "@types/vscode": "1.70.0",
     "@typescript-eslint/eslint-plugin": "5.59.2",
-    "@vscode/test-electron": "2.3.2",
     "@typescript-eslint/parser": "5.59.2",
+    "@vscode/test-electron": "2.3.2",
     "eslint": "8.40.0",
-    "glob": "10.2.3",
     "husky": "8.0.3",
     "jest": "29.5.0",
+    "jest-environment-node": "^29.5.0",
     "lint-staged": "13.2.2",
     "prettier": "2.8.8",
     "ts-jest": "29.1.0",

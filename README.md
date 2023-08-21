@@ -26,6 +26,8 @@ Run Stryker tests against a selected block of code (line range) in the editor fr
 
 - Context Menu
 
+By default Stryker Runner will not make any attempt (e.g. bare `npx`) to ensure Stryker is available in the environment, it assumes that it is. This may be as a part of the project dependencies or installed globally on your system, the reason for this is that ideally any project that requires a dependency should declare that dependency - ([npm](https://www.npmjs.com/package/@stryker-mutator/core)).
+
 ## Extension Settings
 
 Stryker Runner will work out of the box but there are a few configuration options that you may want to take advantage of:

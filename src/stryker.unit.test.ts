@@ -1,4 +1,5 @@
-import { Uri } from '../__mocks__/vscode';
+import path from 'path';
+import { Uri, mockGetWorkspaceFolder } from '../__mocks__/vscode';
 import { strykerCommand, strykerConfigFilePath } from './config';
 import { commandRunner } from './stryker';
 import { makeReusableTerminal, runCommand } from './terminal';
@@ -27,45 +28,72 @@ describe('Stryker', () => {
       });
     });
     describe('Curried command runner function', () => {
+      const stubFilePath = '/path/to/file.ts';
+      const stubLineRange = '1-10';
+      const stubFileFsPath = path.resolve(stubFilePath);
+      const expectedRelativePathFile = path.relative(path.resolve('/path'), stubFileFsPath);
+
+      beforeEach(() => {
+        mockGetWorkspaceFolder.mockReturnValue({ uri: new Uri({ path: '/path' }) });
+      });
+
       it('should execute a Stryker command with a custom config file path', () => {
         mockTerminal.mockReturnValueOnce('a terminal');
         mockStrykerCommand.mockReturnValueOnce('a command');
         mockStrykerConfigFilePath.mockReturnValueOnce('a path');
 
-        commandRunner()({ file: new Uri({ path: '/path/to/file' }), lineRange: '1-10' });
+        commandRunner()({ file: new Uri({ path: stubFilePath }), lineRange: stubLineRange });
 
         expect(makeReusableTerminal).toHaveBeenCalledWith({ name: 'Stryker' });
         expect(strykerCommand).toHaveBeenCalled();
         expect(strykerConfigFilePath).toHaveBeenCalled();
         expect(mockTerminal).toHaveBeenCalled();
         expect(runCommand).toHaveBeenCalledWith('a terminal');
-        expect(mockRunCommandReturn).toHaveBeenCalledWith('a command run --mutate /path/to/file:1-10 a path');
+        expect(mockRunCommandReturn).toHaveBeenCalledWith(
+          `a command run --mutate ${expectedRelativePathFile}:${stubLineRange} a path`,
+        );
       });
       it('should execute a Stryker command without a custom config file path', () => {
         mockTerminal.mockReturnValueOnce('a terminal');
         mockStrykerCommand.mockReturnValueOnce('a command');
 
-        commandRunner()({ file: new Uri({ path: '/path/to/file' }), lineRange: '1-10' });
+        commandRunner()({ file: new Uri({ path: stubFilePath }), lineRange: stubLineRange });
 
         expect(makeReusableTerminal).toHaveBeenCalledWith({ name: 'Stryker' });
         expect(strykerCommand).toHaveBeenCalled();
         expect(strykerConfigFilePath).toHaveBeenCalled();
         expect(mockTerminal).toHaveBeenCalled();
         expect(runCommand).toHaveBeenCalledWith('a terminal');
-        expect(mockRunCommandReturn).toHaveBeenCalledWith('a command run --mutate /path/to/file:1-10');
+        expect(mockRunCommandReturn).toHaveBeenCalledWith(
+          `a command run --mutate ${expectedRelativePathFile}:${stubLineRange}`,
+        );
       });
       it('should execute a Stryker command without a line range', () => {
         mockTerminal.mockReturnValueOnce('a terminal');
         mockStrykerCommand.mockReturnValueOnce('a command');
 
-        commandRunner()({ file: new Uri({ path: '/path/to/file' }) });
+        commandRunner()({ file: new Uri({ path: stubFilePath }) });
 
         expect(makeReusableTerminal).toHaveBeenCalledWith({ name: 'Stryker' });
         expect(strykerCommand).toHaveBeenCalled();
         expect(strykerConfigFilePath).toHaveBeenCalled();
         expect(mockTerminal).toHaveBeenCalled();
         expect(runCommand).toHaveBeenCalledWith('a terminal');
-        expect(mockRunCommandReturn).toHaveBeenCalledWith('a command run --mutate /path/to/file');
+        expect(mockRunCommandReturn).toHaveBeenCalledWith(`a command run --mutate ${expectedRelativePathFile}`);
+      });
+      it('should execute a Stryker command without a realtive path to the workspace folder', () => {
+        mockGetWorkspaceFolder.mockReturnValue(undefined);
+        mockTerminal.mockReturnValueOnce('a terminal');
+        mockStrykerCommand.mockReturnValueOnce('a command');
+
+        commandRunner()({ file: new Uri({ path: stubFilePath }) });
+
+        expect(makeReusableTerminal).toHaveBeenCalledWith({ name: 'Stryker' });
+        expect(strykerCommand).toHaveBeenCalled();
+        expect(strykerConfigFilePath).toHaveBeenCalled();
+        expect(mockTerminal).toHaveBeenCalled();
+        expect(runCommand).toHaveBeenCalledWith('a terminal');
+        expect(mockRunCommandReturn).toHaveBeenCalledWith(`a command run --mutate ${stubFileFsPath}`);
       });
     });
   });

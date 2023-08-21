@@ -10,6 +10,6 @@
     "strict": true,
     "noUnusedParameters": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "src/test-helpers.ts", "**/__mocks__/*"]
+  "include": ["src/**/*", "e2e-tests"],
+  "exclude": ["node_modules"]
 }

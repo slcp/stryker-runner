@@ -7,12 +7,12 @@ export function activate(context: vscode.ExtensionContext) {
 
   let runStrykerOnFile = vscode.commands.registerCommand(
     'stryker-runner.run-stryker-on-file',
-    runStrykerOnFileCommand(run)
+    runStrykerOnFileCommand(run),
   );
 
   let runStrykerOnSelection = vscode.commands.registerCommand(
     'stryker-runner.run-stryker-on-selection',
-    runStrykerOnSelectionCommand(run)
+    runStrykerOnSelectionCommand(run),
   );
 
   context.subscriptions.push(runStrykerOnFile);

@@ -50,7 +50,7 @@ describe('Stryker', () => {
         expect(mockTerminal).toHaveBeenCalled();
         expect(runCommand).toHaveBeenCalledWith('a terminal');
         expect(mockRunCommandReturn).toHaveBeenCalledWith(
-          `a command run --mutate ${expectedRelativePathFile}:${stubLineRange} a path`
+          `a command run --mutate ${expectedRelativePathFile}:${stubLineRange} a path`,
         );
       });
       it('should execute a Stryker command without a custom config file path', () => {
@@ -65,7 +65,7 @@ describe('Stryker', () => {
         expect(mockTerminal).toHaveBeenCalled();
         expect(runCommand).toHaveBeenCalledWith('a terminal');
         expect(mockRunCommandReturn).toHaveBeenCalledWith(
-          `a command run --mutate ${expectedRelativePathFile}:${stubLineRange}`
+          `a command run --mutate ${expectedRelativePathFile}:${stubLineRange}`,
         );
       });
       it('should execute a Stryker command without a line range', () => {

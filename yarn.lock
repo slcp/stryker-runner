@@ -2840,7 +2840,7 @@ jest-circus@^29.6.3:
     slash "^3.0.0"
     stack-utils "^2.0.3"
 
-jest-cli@*, jest-cli@^29.6.3, jest-cli@s29.6.3:
+jest-cli@*, jest-cli@29.6.3, jest-cli@^29.6.3:
   version "29.6.3"
   resolved "https://registry.yarnpkg.com/jest-cli/-/jest-cli-29.6.3.tgz#1e6520106e9d7443a481ebe07ffed46e1568a51f"
   integrity sha512-KuPdXUPXQIf0t6DvmG8MV4QyhcjR1a6ruKl3YL7aGn/AQ8JkROwFkWzEpDIpt11Qy188dHbRm8WjwMsV/4nmnQ==

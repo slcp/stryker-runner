@@ -2,8 +2,8 @@
  * @type {import('@stryker-mutator/api/core').StrykerOptions}
  */
 module.exports = {
-  ignorePatterns: ['**/*', '!*.js', '!*.json', '!__mocks__/**/*', '!src/**/*'],
-  mutate: ['{src,lib}/**/*.{ts,js}', '!{src,lib}/**/?(*.)+(spec|test).{ts,js}', '!src/test-helpers.ts'],
+  ignorePatterns: ['**/*', '!*.js', '!*.json', '!__mocks__/**/*', '!src/**/*', '!e2e-tests/test-workspace/*'],
+  mutate: ['{src,lib,e2e-tests}/**/*.{ts,js}', '!{src,lib}/**/?(*.)+(spec|test).{ts,js}', '!src/test-helpers.ts'],
   testRunner: 'jest',
   packageManager: 'yarn',
   checkers: ['typescript'],
@@ -14,4 +14,5 @@ module.exports = {
   jest: {
     configFile: './jest.stryker.config.js',
   },
+  disableTypeChecks: '{e2e-tests,src,}/**/*.{js,ts}',
 };

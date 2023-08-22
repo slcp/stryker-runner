@@ -1,5 +1,5 @@
 import { runCLI } from 'jest';
-import path from 'path';
+import path, { resolve } from 'path';
 
 export async function run() {
   // This will repo the root for some reason - where the command is run from?
@@ -26,6 +26,11 @@ export async function run() {
     });
 
     console.log('succeeded with jest');
+
+    // await new Promise((resolve) => setTimeout(resolve, 30000));
+
+    // console.log('running with jest');
+    // const jestCliCallResult = await runCLI({ config }
     // TODO: do we need this?
     // reportTestResults(undefined, jestCliCallResult.results.numFailedTests);
   } catch (errorCaughtByJestRunner) {

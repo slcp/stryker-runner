@@ -7,12 +7,12 @@ module.exports = {
   testRunner: 'jest',
   packageManager: 'yarn',
   checkers: ['typescript'],
-  reporters: ['html', 'clear-text', 'progress'],
+  reporters: ['html', 'clear-text', 'progress', 'json'],
   tsconfigFile: 'tsconfig.json',
   timeoutMS: 60000,
   thresholds: { high: 100, low: 100, break: 100 },
   jest: {
     configFile: './jest.stryker.config.js',
   },
-  disableTypeChecks: '{e2e-tests,src,}/**/*.{js,ts}',
+  disableTypeChecks: '{e2e-tests,stryker-temp,src}/**/*.{js,ts}',
 };

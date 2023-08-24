@@ -1,41 +1,62 @@
-import vscode, { Terminal } from 'vscode';
+import vscode, { Position, Range, Terminal } from 'vscode';
+import fs from 'fs';
+import path from 'path';
 
-const waitForTerminal = async (name: string): Promise<Terminal> => {
-  while (true) {
-    const terminals = vscode.window.terminals;
-    const terminal = terminals.find((t) => t.name === name);
-    if (terminal) {
-      return terminal;
-    }
-    await new Promise((resolve) => setTimeout(resolve, 500));
+const waitForFile = async (file: string): Promise<void> => {
+  if (fs.existsSync(file)) {
+    return;
   }
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return await waitForFile(file);
 };
 
-const waitForTerminalExitCode = async (terminal: Terminal) => {
-  while (true) {
-    if (terminal.exitStatus) {
-      return terminal.exitStatus;
-    }
-    // console.log("no exit code")
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  }
+const pathToJsonReport = path.join(__dirname, '..', '..', '..', 'reports', 'mutation', 'mutation.json');
+
+const getReport = async () => {
+  // Wait for a JSON report to be output
+  await waitForFile(pathToJsonReport);
+  // Load the report
+  const report = JSON.parse(String(fs.readFileSync(pathToJsonReport)));
+  return report;
 };
 
 describe('some', () => {
-  it('should do stuff', async () => {
-    // Setup
-    // Open the workspace containing test files to mutate
-    const uri = vscode.Uri.parse(`file://${process.cwd()}`);
-    const testFile = vscode.Uri.parse(`file://${process.cwd()}/e2e-tests/test-workspace/add.ts`);
-    console.log(await vscode.commands.executeCommand('vscode.openFolder', uri));
-    console.log(await vscode.commands.executeCommand('stryker-runner.run-stryker-on-file', testFile));
+  const workspace = vscode.Uri.parse(`file://${process.cwd()}`);
+  beforeEach(async () => {
+    // Relative to the out directory
+    try {
+      fs.rmSync(pathToJsonReport);
+    } catch {}
+    // Open the workspace (this project)
+    await vscode.commands.executeCommand('vscode.openFolder', workspace);
+  });
+  it.only('should successfully ask Stryker to mutate a single file', async () => {
+    const expectedMutationTarget = 'e2e-tests/test-workspace/add.ts';
+    const file = workspace.with({ path: `${workspace.path}/e2e-tests/test-workspace/add.ts` });
+    // Issue command
+    await vscode.commands.executeCommand('stryker-runner.run-stryker-on-file', file);
 
-    const terminal = await waitForTerminal('Stryker');
-    console.log('Got terminal', terminal);
-    const exitCode = await waitForTerminalExitCode(terminal);
+    const report = await getReport();
+    throw new Error('test');
+    // We only expect one mutation target, there could be multiple
+    expect(report.config.mutate).toHaveLength(1);
+    expect(report.config.mutate[0]).toEqual(expectedMutationTarget);
+  }, 90000);
+  it('should successfully ask Stryker to mutate a line range in a file', async () => {
+    const expectedMutationTarget = 'e2e-tests/test-workspace/add.ts:1-1';
+    const file = workspace.with({ path: `${workspace.path}/e2e-tests/test-workspace/add.ts` });
+    // Open test file to mutate with a text selection in place and holding focus
+    await vscode.window.showTextDocument(file, {
+      preserveFocus: true,
+      selection: new Range(new Position(0, 0), new Position(0, 10)),
+    });
+    // Issue command
+    await vscode.commands.executeCommand('stryker-runner.run-stryker-on-selection', file);
 
-    console.log('Exit code: ', exitCode);
+    const report = await getReport();
 
-    expect(true).toEqual(true);
-  }, 60000);
+    // We only expect one mutation target, there could be multiple
+    expect(report.config.mutate).toHaveLength(1);
+    expect(report.config.mutate[0]).toEqual(expectedMutationTarget);
+  }, 90000);
 });

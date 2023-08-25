@@ -3,6 +3,7 @@ import path from 'path';
 
 export async function run() {
   // This will repo the root - use __dirname?
+  // The script should always be invoked from the root/package.json location - so cwd?
   const repoRoot = process.cwd();
   const projectRootPath = repoRoot;
   const config = path.join(repoRoot, 'jest.e2e.config.js');
@@ -15,7 +16,7 @@ export async function run() {
     }
   } catch (error) {
     console.error((error as Error).message);
-    // Exit ourselves of throwing here will ensure a unhappy exit code
+    // Exit ourselves or throwing here will ensure an unhappy exit code
     process.exit(1);
   }
 }

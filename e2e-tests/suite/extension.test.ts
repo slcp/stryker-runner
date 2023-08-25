@@ -21,7 +21,7 @@ const getReport = async () => {
   return report;
 };
 
-describe('some', () => {
+describe('Stryker Runner', () => {
   const workspace = vscode.Uri.parse(`file://${process.cwd()}`);
   beforeEach(async () => {
     try {

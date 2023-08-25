@@ -45,6 +45,7 @@ jobs:
         run: yarn test:unit
 
   mutation-tests:
+    needs: [lint, unit-tests]
     name: Mutation tests
     runs-on: ubuntu-latest
     steps:
@@ -78,13 +79,9 @@ jobs:
         run: yarn test:mutation
 
   extension-tests:
+    needs: [lint, unit-tests, mutation-tests]
     name: Extension Tests using Development Host
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      max-parallel: 3
-      matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -99,7 +96,6 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Start xvfb only if it's Linux
-        if: startsWith(matrix.os,'ubuntu')
         run: |
           /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           echo ">>> Started xvfb"

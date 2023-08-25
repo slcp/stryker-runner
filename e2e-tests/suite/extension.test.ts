@@ -1,4 +1,4 @@
-import vscode, { Position, Range, Terminal } from 'vscode';
+import vscode, { Position, Range } from 'vscode';
 import fs from 'fs';
 import path from 'path';
 

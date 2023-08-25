@@ -74,17 +74,16 @@
   "scripts": {
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p tsconfig.build.json",
-    "watch": "tsc -watch -p ./",
-    "pretest": "yarn compile && yarn run lint",
     "prepare": "husky install",
     "prettier:fix": "yarn prettier:check -- --write",
     "prettier:check": "prettier \"./**/*\" --check --no-editorconfig",
     "lint": "eslint src --max-warnings 0 --ext ts",
-    "test": "node ./out/test/runTest.js",
     "test:unit": "yarn jest \"(?<=.unit).test.ts$\" --coverage",
     "test:mutation": "yarn stryker run --incremental",
     "test:mutation:full": "yarn stryker run",
-    "test:integration": "tsc -p tsconfig.e2e.json && node ./out/e2e-tests/runTest.js && rm -r ./out"
+    "pretest:integration": "tsc -p tsconfig.e2e.json",
+    "test:integration": "node ./out/e2e-tests/runTest.js",
+    "posttest:integration": "rm -r ./out"
   },
   "devDependencies": {
     "@stryker-mutator/core": "6.2.3",

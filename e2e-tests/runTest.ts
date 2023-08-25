@@ -10,7 +10,7 @@ async function main() {
     // The path to the extension test runner script
     // Passed to --extensionTestsPath
     // Everything gets compiled before being run so it will be a js file
-    const extensionTestsPath = path.resolve(__dirname, './suite/index.js');
+    const extensionTestsPath = path.resolve(__dirname, './suite/index');
 
     // Using latest (1.81.something) crashes for an unknown reason
     const version = 'insiders';

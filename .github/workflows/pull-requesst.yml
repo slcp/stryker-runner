@@ -107,6 +107,6 @@ jobs:
 
       - name: Run tests
         run: |
-          npm test:integration
+          yarn test:integration
         env:
           DISPLAY: ':99.0' # Only necessary for linux tests

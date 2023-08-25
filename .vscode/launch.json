@@ -9,11 +9,11 @@
       "args": [
         "--disable-extensions",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/src/test/suite"
+        "--extensionTestsPath=${workspaceFolder}/out/e2e-tests/suite"
       ],
       "outFiles": [
-        "${workspaceFolder}/out/test/**/*.js"
-      ]
+        "${workspaceFolder}/out/e2e-tests/**/*.js"
+      ],
     }
   ]
 }

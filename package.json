@@ -74,6 +74,7 @@
   "scripts": {
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p tsconfig.build.json",
+    "compile:e2e": "tsc -p tsconfig.e2e.json",
     "prepare": "husky install",
     "prettier:fix": "yarn prettier:check -- --write",
     "prettier:check": "prettier \"./**/*\" --check --no-editorconfig",
@@ -81,7 +82,7 @@
     "test:unit": "yarn jest \"(?<=.unit).test.ts$\" --coverage",
     "test:mutation": "yarn stryker run --incremental",
     "test:mutation:full": "yarn stryker run",
-    "pretest:integration": "tsc -p tsconfig.e2e.json",
+    "pretest:integration": "yarn compile:e2e",
     "test:integration": "node ./out/e2e-tests/runTest.js",
     "posttest:integration": "rm -r ./out"
   },

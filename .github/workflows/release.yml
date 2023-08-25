@@ -40,22 +40,32 @@ jobs:
         run: |
           npx vsce package ${{ steps.make-version.outputs.VERSION }}  --no-git-tag-version
 
+      # -- Common jobs end here --
+      # TODO: Cache the package output
+
+      # TODO: Parallelise into own job
+      # TODO: Use package cache
       - name: Release to Github
         uses: softprops/action-gh-release@v1
         with:
           files: stryker-runner-${{ steps.make-version.outputs.VERSION }}.vsix
           fail_on_unmatched_files: true
 
+      # TODO: Parallelise into own job
+      # TODO: Use package cache
       - name: Release to VSCode Marketplace
         env:
           VSCE_PAT: ${{ secrets.VCSE_PAT_TOKEN }}
         run: npx vsce publish --no-git-tag-version --no-update-package-json -i "stryker-runner-${{ steps.make-version.outputs.VERSION }}.vsix"
 
+      # TODO: Parallelise into own job
+      # TODO: Use package cache
       - name: Release to OpenVSX
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT_TOKEN }}
         run: npx ovsx publish -i "stryker-runner-${{ steps.make-version.outputs.VERSION }}.vsix"
 
+      # TODO: Parallelise into own job
       - name: Update package.json
         run: |
           git add package.json

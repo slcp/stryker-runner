@@ -22,7 +22,9 @@ const getReport = async () => {
 };
 
 describe('Stryker Runner', () => {
-  const workspace = vscode.Uri.parse(`file://${process.cwd()}`);
+  const repoRoot = path.join(__dirname, '..', '..', '..');
+  const workspace = vscode.Uri.parse(`file://${repoRoot}`);
+
   beforeEach(async () => {
     try {
       fs.rmSync(pathToJsonReport);

@@ -2,14 +2,12 @@ import { runCLI } from 'jest';
 import path from 'path';
 
 export async function run() {
-  // This will repo the root - use __dirname?
-  // The script should always be invoked from the root/package.json location - so cwd?
-  const repoRoot = process.cwd();
-  const projectRootPath = repoRoot;
+  // Relative to out/, These files are compiled into the 'out' dir before being run as JS
+  const repoRoot = path.join(__dirname, '..', '..', '..');
   const config = path.join(repoRoot, 'jest.e2e.config.js');
 
   try {
-    const results = await runCLI({ config } as any, [projectRootPath]);
+    const results = await runCLI({ config } as any, [repoRoot]);
 
     if (results.results.numFailedTests > 0) {
       throw new Error('Some tests failed.');

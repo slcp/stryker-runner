@@ -22,7 +22,7 @@ describe('Filesystem helpers', () => {
       const res = findFileInTree(
         new Uri({ path: 'root/path' }),
         new Uri({ path: 'root/path/to/nested/dir' }),
-        'some.txt'
+        'some.txt',
       );
 
       expect(existsSync).toHaveBeenCalledTimes(4);
@@ -39,7 +39,7 @@ describe('Filesystem helpers', () => {
       const res = findFileInTree(
         new Uri({ path: 'root/path' }),
         new Uri({ path: 'root/path/to/nested/dir' }),
-        'some.txt'
+        'some.txt',
       );
 
       expect(existsSync).toHaveBeenCalledTimes(3);
@@ -80,7 +80,7 @@ describe('Filesystem helpers', () => {
       const res = workspaceHasYarnLockFile(new Uri({ path: 'root/path/to/nested/dir/x.test.ts' }));
 
       expect(mockGetWorkspaceFolder).toHaveBeenCalledWith(
-        expect.objectContaining({ path: 'root/path/to/nested/dir/x.test.ts' })
+        expect.objectContaining({ path: 'root/path/to/nested/dir/x.test.ts' }),
       );
       expect(existsSync).toHaveBeenCalledTimes(5);
       expect(existsSync).toHaveBeenCalledWith('root/path/to/nested/dir/x.test.ts/yarn.lock');

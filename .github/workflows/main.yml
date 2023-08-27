@@ -78,3 +78,39 @@ jobs:
 
       - name: Mutation tests
         run: yarn test:mutation
+
+  extension-tests:
+    # These are expensive so run last and only run multiple OSes on main
+    needs: [lint, unit-tests, mutation-tests]
+    name: Extension Tests using Development Host
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      max-parallel: 3
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: Install packages
+        run: yarn install --frozen-lockfile
+
+      - name: Start xvfb only if it's Linux
+        if: startsWith(matrix.os,'ubuntu')
+        run: |
+          /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          echo ">>> Started xvfb"
+        shell: bash
+
+      - name: Run tests
+        run: |
+          yarn test:integration
+        env:
+          DISPLAY: ':99.0' # Only necessary for linux tests

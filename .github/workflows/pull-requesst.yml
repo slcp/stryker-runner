@@ -45,6 +45,7 @@ jobs:
         run: yarn test:unit
 
   mutation-tests:
+    needs: [lint, unit-tests]
     name: Mutation tests
     runs-on: ubuntu-latest
     steps:
@@ -60,7 +61,7 @@ jobs:
         id: branch-name
         uses: tj-actions/branch-names@v5.5
 
-      - name: Cache Stryker incremental test ouputØ
+      - name: Cache Stryker incremental test ouput
         id: cache-stryker-incremental-output
         uses: actions/cache@v3
         env:
@@ -76,3 +77,32 @@ jobs:
 
       - name: Mutation tests
         run: yarn test:mutation
+
+  extension-tests:
+    needs: [lint, unit-tests, mutation-tests]
+    name: Extension Tests using Development Host
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: Install packages
+        run: yarn install --frozen-lockfile
+
+      - name: Start xvfb only if it's Linux
+        run: |
+          /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          echo ">>> Started xvfb"
+        shell: bash
+
+      - name: Run tests
+        run: |
+          yarn test:integration
+        env:
+          DISPLAY: ':99.0' # Only necessary for linux tests

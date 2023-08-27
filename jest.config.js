@@ -2,7 +2,7 @@ module.exports = {
   testRunner: 'jest-circus/runner',
   preset: 'ts-jest',
   testEnvironment: 'node',
-  collectCoverageFrom: ['src/**/*.ts', '!src/test/**/*'],
+  collectCoverageFrom: ['src/**/*.ts'],
   coverageDirectory: './reports/coverage',
   coverageThreshold: {
     global: {
@@ -12,7 +12,7 @@ module.exports = {
       statements: 100,
     },
   },
-  testPathIgnorePatterns: ['/node_modules/', 'src/test/*'],
+  testPathIgnorePatterns: ['/node_modules/', '/.stryker-tmp'],
   reporters: ['default'],
   clearMocks: true,
 };

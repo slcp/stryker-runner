@@ -1,11 +1,11 @@
-import * as vscode from 'vscode';
-import path from 'path';
 import { existsSync } from 'fs';
+import path from 'path';
+import * as vscode from 'vscode';
 
 export const findFileInTree = (root: vscode.Uri, start: vscode.Uri, file: string): boolean => {
-  if (existsSync(`${start.path}${path.sep}${file}`)) return true;
+  if (existsSync(path.join(start.path, file))) return true;
   if (root.path === start.path) return false;
-  return findFileInTree(root, vscode.Uri.file(start.path.substring(0, start.path.lastIndexOf(path.sep))), file);
+  return findFileInTree(root, vscode.Uri.file(path.dirname(start.path)), file);
 };
 
 export const workspaceHasYarnLockFile = (file: vscode.Uri): boolean => {

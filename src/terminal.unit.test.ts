@@ -25,7 +25,7 @@ describe('Terminal', () => {
       expect(mockTerminal.sendText).toHaveBeenCalledWith('send me to the terminal');
     });
   });
-  describe('Make resuable terminal', () => {
+  describe('Make reusable terminal', () => {
     it('should return a function and register a terminalDidClose listener', () => {
       const res = makeReusableTerminal({ name: 'a terminal' });
 

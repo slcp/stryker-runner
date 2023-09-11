@@ -39,11 +39,11 @@ describe('Extension', () => {
       expect(commands.registerCommand).toHaveBeenCalledTimes(2);
       expect(commands.registerCommand).toHaveBeenCalledWith(
         'stryker-runner.run-stryker-on-file',
-        'run strkyer on file'
+        'run strkyer on file',
       );
       expect(commands.registerCommand).toHaveBeenCalledWith(
         'stryker-runner.run-stryker-on-selection',
-        'run strkyer on selection'
+        'run strkyer on selection',
       );
       expect(context.subscriptions.push).toHaveBeenCalledTimes(2);
       expect(context.subscriptions.push).toHaveBeenCalledWith('on file command registered');

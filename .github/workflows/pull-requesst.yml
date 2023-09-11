@@ -1,10 +1,8 @@
-name: Prep the rocket!
+name: Kick the tyres!
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
   lint:
@@ -47,6 +45,7 @@ jobs:
         run: yarn test:unit
 
   mutation-tests:
+    needs: [lint, unit-tests]
     name: Mutation tests
     runs-on: ubuntu-latest
     steps:
@@ -62,7 +61,7 @@ jobs:
         id: branch-name
         uses: tj-actions/branch-names@v5.5
 
-      - name: Cache Stryker incremental test ouputØ
+      - name: Cache Stryker incremental test ouput
         id: cache-stryker-incremental-output
         uses: actions/cache@v3
         env:
@@ -80,15 +79,9 @@ jobs:
         run: yarn test:mutation
 
   extension-tests:
-    # These are expensive so run last and only run multiple OSes on main
     needs: [lint, unit-tests, mutation-tests]
     name: Extension Tests using Development Host
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      max-parallel: 3
-      matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -103,7 +96,6 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Start xvfb only if it's Linux
-        if: startsWith(matrix.os,'ubuntu')
         run: |
           /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           echo ">>> Started xvfb"

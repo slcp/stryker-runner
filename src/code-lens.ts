@@ -16,16 +16,16 @@ export class StrykerRunnerCodeLensProvider implements vscode.CodeLensProvider {
         new vscode.CodeLens(
           new vscode.Range(
             new vscode.Position(m.location.start.line, 0),
-            new vscode.Position(m.location.start.line, 1)
+            new vscode.Position(m.location.start.line, 1),
           ),
           {
             title: 'Hello',
             command: 'string',
             tooltip: 'Blah',
             arguments: [],
-          }
-        )
-      )
+          },
+        ),
+      ),
     );
     return codeLens;
   }

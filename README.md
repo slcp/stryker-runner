@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Stryker Runner is a [Visual Studio Code](https://code.visualstudio.com) Extention that is intended to allow users to easily and selectively run Stryker mutation tests against (currently) Javascript and Typescript projects.
+Stryker Runner is a [Visual Studio Code](https://code.visualstudio.com) Extension that is intended to allow users to easily and selectively run Stryker mutation tests against (currently) Javascript and Typescript projects.
 
 ## Why bother with it?
 
@@ -14,7 +14,7 @@ Stryker does facilitate the execution of mutation testing of single files and on
 
 - [VSIX Package](https://github.com/slcp/stryker-runner/releases)
 - [VisualStudio Marketplace](https://marketplace.visualstudio.com/items?itemName=pixabelle.stryker-runner)
-- Open VSX Registry - TBC
+- [Open VSX Registry](https://open-vsx.org/extension/pixabelle/stryker-runner)
 
 ## Features
 
@@ -26,6 +26,8 @@ Run Stryker tests against a selected block of code (line range) in the editor fr
 
 - Context Menu
 
+By default Stryker Runner will not make any attempt (e.g. bare `npx`) to ensure Stryker is available in the environment, it assumes that it is. This may be as a part of the project dependencies or installed globally on your system, the reason for this is that ideally any project that requires a dependency should declare that dependency - ([npm](https://www.npmjs.com/package/@stryker-mutator/core)).
+
 ## Extension Settings
 
 Stryker Runner will work out of the box but there are a few configuration options that you may want to take advantage of:
@@ -34,4 +36,4 @@ Stryker Runner will work out of the box but there are a few configuration option
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | strykerRunner.stryker.configFile | Stryker config path (relative to ${workFolder} e.g. stryker-config-file.js). Stryker will attempt to auto-discover a settings file - https://stryker-mutator.io/docs/stryker-js/config-file/#usage |
 | strykerRunner.stryker.command    | The command used to run Stryker, defaults to `[yarn/npx --no-install] stryker`. This command should be able to have additional arguments appended to it.                                           |
-| strykerRunner.node.useYarn       | Set to true if your project uses yarn.                                                                                                                                                             |
+| strykerRunner.node.useYarn       | Set to true to force the usage of Yarn to run Stryker. `yarn.lock` files will be autodiscovered to infer yarn as a package manager.                                                                |

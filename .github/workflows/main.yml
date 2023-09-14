@@ -60,7 +60,7 @@ jobs:
 
       - name: Get branch name
         id: branch-name
-        uses: tj-actions/branch-names@v5.5
+        uses: tj-actions/branch-names@v6.5
 
       - name: Cache Stryker incremental test ouputØ
         id: cache-stryker-incremental-output

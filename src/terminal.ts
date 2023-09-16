@@ -10,6 +10,7 @@ export const makeReusableTerminal = ({ name }: { name: string }) => {
     }
   });
 
+  // TODO: Maybe this should be done with CodeActions? Not sure if it is appropriate
   return () => {
     if (!terminal) {
       terminal = vscode.window.createTerminal(name);

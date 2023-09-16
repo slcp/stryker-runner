@@ -19,9 +19,9 @@ export class StrykerRunnerCodeLensProvider implements vscode.CodeLensProvider {
             new vscode.Position(m.location.start.line, 1),
           ),
           {
-            title: 'Hello',
-            command: 'string',
-            tooltip: 'Blah',
+            title: 'Mutations survived here',
+            command: 'string', // Cannot display popup here but could open the html report? Can I implement hover provider?
+            tooltip: 'Blah', // Can this be interactive? No. Could this tooltip show the mutant code, would that be janky?
             arguments: [],
           },
         ),

@@ -4,28 +4,41 @@ So that the feedback loop to kill the mutant is as short as possible.
 
 ## Least effort?
 
-  - Is the least effort here a CodeLens provider that annotates the code and opens the/a (html) report for that page/line/mutant
+- Is the least effort here a CodeLens provider that annotates the code and opens the/a (html) report for that page/line/mutant
+- This could be quite nice actually.
+- Problem: if incremental testing is in place the html report may not have mutant/file in.
+  - Is it a fair assumption that surviving mutants, especially those the user actively tries to view, will be there because they will likely have run tests against them in the recent past?
+- Completely irrelevant but: should the incremental stryker report ship with the repo to speed up everyone elses testing?
 
 ## Implement some visual indicator that there are surviving mutants in a source file
 
-  - CodeLens
-    - This provides the ability to annotate the line with a text button than can trigger a command
-    - Not sure we can open a popup or anything like that from this artifact
-    - Keep an eye out for any missed functionality
-  - Decorations
-    - Gutters
-      - Displaying an icon in the gutter of the line (like test coverage extension).
-      - This could be a nice indicator, potentially using the Stryker logo (svg is probably desirable).
-        - Maybe the logo with the number of surviving mutants in it?
-      - Explore usage in conjunction with hover?
-  - Hover
-    - Can display a popup when the user hovers over some text - this is different from code completion, signature stuff.
-        - But would it interfere with code completion, signature stuff?
-    - This kind of popup is what I had in mind originally, listing each surviving mutation.
-    - Explore usage of this in conjunction with decorations?
+- CodeLens
+  - This provides the ability to annotate the line with a text button than can trigger a command
+  - Not sure we can open a popup or anything like that from this artifact
+  - Keep an eye out for any missed functionality
+- Decorations
+  - Gutters
+    - Displaying an icon in the gutter of the line (like test coverage extension).
+    - This could be a nice indicator, potentially using the Stryker logo (svg is probably desirable).
+      - Maybe the logo with the number of surviving mutants in it?
+    - Explore usage in conjunction with hover?
+- Hover
+  - Can display a popup when the user hovers over some text - this is different from code completion, signature stuff.
+    - But would it interfere with code completion, signature stuff?
+  - This kind of popup is what I had in mind originally, listing each surviving mutation.
+  - Explore usage of this in conjunction with decorations?
 
 ### Further questions
 
-  - The gutter feels like a good indicator but is some visual feedback on the line itself to indicate where the mutants are desirable?
-    - Otherwise how would a user understand that hovering provides more information? And where should they hover?
-    - Given that there are plenty of extensions (as well as core VSCode) trying to show feedback to the user if trying to show more going to be too much?
+- The gutter feels like a good indicator but is some visual feedback on the line itself to indicate where the mutants are desirable?
+  - Otherwise how would a user understand that hovering provides more information? And where should they hover?
+  - Given that there are plenty of extensions (as well as core VSCode) trying to show feedback to the user if trying to show more going to be too much?
+  - [Coverage Gutters](https://github.com/ryanluker/vscode-coverage-gutters) extension can also line highlight using the background color.
+    - This extension also uses the gutter to indicate tests status.
+- Gutter and line highlighting can be toggled on and off.
+- Does hover make sense only when line highlighting is on?
+- What is there are overlapping mutation blocks of code - opacity of the highlight will allow the rendering engine to handle that.
+
+## Things to note
+
+    - At least initially we should choose a single report type to be able to parse, e.g. JSON, and worry about supporting others later.

@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { runStrykerOnFileCommand, runStrykerOnSelectionCommand } from './commands';
 import { commandRunner } from './stryker';
+import { decorate } from './decorator-experiment';
 
 export function activate(context: vscode.ExtensionContext) {
   const run = commandRunner();
@@ -14,6 +15,8 @@ export function activate(context: vscode.ExtensionContext) {
     'stryker-runner.run-stryker-on-selection',
     runStrykerOnSelectionCommand(run),
   );
+
+  decorate(context);
 
   context.subscriptions.push(runStrykerOnFile);
   context.subscriptions.push(runStrykerOnSelection);

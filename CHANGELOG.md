@@ -4,6 +4,10 @@ All notable changes to the "stryker-runner" extension will be documented in this
 
 ## [Unreleased]
 
+## [v0.0.45](https://github.com/slcp/stryker-runner/compare/v0.0.44...v0.0.45)
+
+- Update dependencies
+
 ## [v0.0.44](https://github.com/slcp/stryker-runner/compare/v0.0.43...v0.0.44)
 
 - Update dependencies

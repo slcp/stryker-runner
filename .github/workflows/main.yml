@@ -64,7 +64,7 @@ jobs:
 
       - name: Cache Stryker incremental test ouputØ
         id: cache-stryker-incremental-output
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: stryker-incremental-output
         with:

@@ -45,7 +45,7 @@ jobs:
           npx vsce package ${{ steps.make-version.outputs.VERSION }}  --no-git-tag-version
 
       - name: Release to Github
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: stryker-runner-${{ steps.make-version.outputs.VERSION }}.vsix
           fail_on_unmatched_files: true

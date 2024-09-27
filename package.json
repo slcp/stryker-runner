@@ -75,7 +75,7 @@
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p tsconfig.build.json",
     "compile:e2e": "tsc -p tsconfig.e2e.json",
-    "prepare": "husky install",
+    "prepare": "husky",
     "prettier:fix": "yarn prettier:check -- --write",
     "prettier:check": "prettier \"./**/*\" --check --no-editorconfig",
     "lint": "eslint src --max-warnings 0 --ext ts",

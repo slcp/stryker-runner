@@ -1,4 +1,5 @@
 import path from 'path';
+import { fake, SinonSpy } from 'sinon';
 
 export class Uri {
   path: string;
@@ -7,8 +8,8 @@ export class Uri {
   query: string;
   fragment: string;
   fsPath: string;
-  with: jest.Func;
-  toJSON: jest.Func;
+  with: SinonSpy;
+  toJSON: SinonSpy;
 
   constructor(args: { path: string }) {
     this.path = args.path;
@@ -17,8 +18,8 @@ export class Uri {
     this.query = '';
     this.fragment = '';
     this.fsPath = path.resolve(args.path);
-    this.with = jest.fn();
-    this.toJSON = jest.fn();
+    this.with = fake();
+    this.toJSON = fake();
   }
 
   static file(path: string) {
@@ -26,18 +27,18 @@ export class Uri {
   }
 }
 
-export const mockGet = jest.fn();
-export const mockGetWorkspaceFolder = jest.fn();
-export const mockShowErrorMessage = jest.fn();
-export const mockOnDidCloseTerminal = jest.fn();
-export const mockCreateTerminal = jest.fn();
-export const mockRegisterCommand = jest.fn();
+export const mockGet = fake();
+export const mockGetWorkspaceFolder = fake();
+export const mockShowErrorMessage = fake();
+export const mockOnDidCloseTerminal = fake();
+export const mockCreateTerminal = fake();
+export const mockRegisterCommand = fake();
 
 export const workspace = {
   getWorkspaceFolder: mockGetWorkspaceFolder,
-  getConfiguration: jest.fn(() => ({
+  getConfiguration: fake.returns({
     get: mockGet,
-  })),
+  }),
 };
 
 export const window = {

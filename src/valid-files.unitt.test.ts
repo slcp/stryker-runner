@@ -1,8 +1,8 @@
+import { expect } from 'chai';
+import { beforeEach, describe, it } from 'mocha';
+import { reset } from 'sinon';
 import { window } from '../__mocks__/vscode';
 import { isTestFile, showInvalidFileMessage } from './valid-files';
-import { fake, reset } from 'sinon';
-import { expect } from 'chai';
-import { describe, beforeEach, it } from 'mocha';
 
 describe('Valid files', () => {
   beforeEach(() => {
@@ -47,11 +47,11 @@ describe('Valid files', () => {
       }),
     );
   });
-  // describe('Show invalid file message', () => {
-  //   it('should show an error message to the user', async () => {
-  //     await showInvalidFileMessage();
+  describe('Show invalid file message', () => {
+    it('should show an error message to the user', async () => {
+      await showInvalidFileMessage();
 
-  //     expect(window.showErrorMessage).toHaveBeenCalledWith('Cannot run Stryker on test files');
-  //   });
-  // });
+      expect(window.showErrorMessage.calledWith('Cannot run Stryker on test files')).equals(true);
+    });
+  });
 });

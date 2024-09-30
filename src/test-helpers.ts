@@ -1,10 +1,13 @@
+import { before } from 'mocha';
+import { fake } from 'sinon';
+
 export const mockConsoleLog = () => {
   let originalConsoleLog: typeof console.log;
-  beforeAll(() => {
+  before(() => {
     originalConsoleLog = console.log;
-    console.log = jest.fn();
+    console.log = fake();
   });
-  afterAll(() => {
+  after(() => {
     console.log = originalConsoleLog;
   });
 };

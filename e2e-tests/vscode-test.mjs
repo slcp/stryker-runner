@@ -8,6 +8,6 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
   files: path.join(__dirname, 'out/suite/extension.test.js'),
   extensionDevelopmentPath: path.join(__dirname, '..'),
-  version: "insiders",
-  workspaceFolder: path.join(__dirname, '..')
+  version: 'insiders',
+  workspaceFolder: path.join(__dirname, '..'),
 });

@@ -6,11 +6,11 @@
     "outDir": "out",
     "lib": ["ES2020"],
     "sourceMap": true,
-    "baseUrl": "./",
     "rootDir": "./",
     "strict": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "typeRoots": ["./node_modules/@types"]
   },
   "include": ["suite"],
-  "exclude": ["node_modules", "../node_modules"]
+  "exclude": ["node_modules"]
 }

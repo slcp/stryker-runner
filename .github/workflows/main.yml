@@ -84,8 +84,6 @@ jobs:
     needs: [lint, unit-tests, mutation-tests]
     name: Extension Tests using Development Host
     runs-on: ${{ matrix.os }}
-    env:
-      NODE_UNC_HOST_ALLOWLIST: 'd:'
 
     strategy:
       max-parallel: 3
@@ -119,3 +117,4 @@ jobs:
           yarn test:integration
         env:
           DISPLAY: ':99.0' # Only necessary for linux tests
+          NODE_UNC_HOST_ALLOWLIST: 'd:' # Only necessary for windows tests

@@ -82,7 +82,7 @@
     "test:unit": "yarn jest \"(?<=.unit).test.ts$\" --coverage",
     "test:mutation": "yarn stryker run --incremental",
     "test:mutation:full": "yarn stryker run",
-    "pretest:integration": "yarn compile:e2e",
+    "pretest:integration": "yarn compile && yarn compile:e2e",
     "test:integration": "cd e2e-tests && yarn test",
     "posttest:integration": "rm -r ./out"
   },

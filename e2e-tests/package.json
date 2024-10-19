@@ -7,7 +7,7 @@
     "clean": "rm -rf out",
     "precompile": "yarn clean",
     "compile": "tsc -p tsconfig.json",
-    "pretest": "rm -rf ../reports/mutation",
+    "pretest": "rm -rf ../reports/mutation && yarn compile",
     "test": "vscode-test --config vscode-test.mjs"
   },
   "dependencies": {

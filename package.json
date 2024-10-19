@@ -74,7 +74,7 @@
   "scripts": {
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p tsconfig.build.json",
-    "compile:e2e": "tsc -p tsconfig.e2e.json",
+    "compile:e2e": "cd e2e-tests && yarn compile",
     "prepare": "husky install",
     "prettier:fix": "yarn prettier:check -- --write",
     "prettier:check": "prettier \"./**/*\" --check --no-editorconfig",
@@ -82,8 +82,8 @@
     "test:unit": "yarn jest \"(?<=.unit).test.ts$\" --coverage",
     "test:mutation": "yarn stryker run --incremental",
     "test:mutation:full": "yarn stryker run",
-    "pretest:integration": "yarn compile:e2e",
-    "test:integration": "node ./out/e2e-tests/runTest.js",
+    "pretest:integration": "yarn compile && yarn compile:e2e",
+    "test:integration": "cd e2e-tests && yarn test",
     "posttest:integration": "rm -r ./out"
   },
   "devDependencies": {
@@ -92,19 +92,18 @@
     "@stryker-mutator/typescript-checker": "6.2.3",
     "@types/jest-cli": "24.3.0",
     "@types/jest": "29.5.13",
-    "@types/node": "16.x",
+    "@types/node": "20.x",
     "@types/vscode": "1.70.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
-    "@vscode/test-electron": "2.4.1",
     "eslint": "8.57.0",
     "husky": "9.1.4",
     "jest": "29.7.0",
     "jest-cli": "29.7.0",
     "lint-staged": "15.2.7",
     "prettier": "3.3.3",
-    "ts-jest": "29.2.4",
+    "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
-    "typescript": "5.5.4"
+    "typescript": "5.6.3"
   }
 }

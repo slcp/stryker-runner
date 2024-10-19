@@ -6,10 +6,11 @@
     "outDir": "out",
     "lib": ["ES2020"],
     "sourceMap": true,
+    "baseUrl": "./",
     "rootDir": "./",
     "strict": true,
     "noUnusedParameters": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "e2e-tests"]
+  "include": ["suite"],
+  "exclude": ["node_modules", "../node_modules"]
 }

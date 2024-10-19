@@ -8,8 +8,9 @@
     "sourceMap": true,
     "rootDir": "./",
     "strict": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "typeRoots": ["./node_modules/@types"]
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "e2e-tests"]
+  "include": ["suite"],
+  "exclude": ["node_modules"]
 }

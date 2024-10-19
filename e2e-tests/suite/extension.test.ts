@@ -6,6 +6,7 @@ import vscode, { Position, Range } from 'vscode';
 
 const waitForFile = async (file: string): Promise<void> => {
   if (fs.existsSync(file)) {
+    console.log(`${file}  not found`);
     return;
   }
   await new Promise((resolve) => setTimeout(resolve, 1000));

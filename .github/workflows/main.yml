@@ -16,7 +16,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: yarn
 
       - name: Install packages
@@ -37,7 +37,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: yarn
 
       - name: Install packages
@@ -55,7 +55,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: yarn
 
       - name: Get branch name
@@ -96,11 +96,14 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: yarn
 
-      - name: Install packages
+      - name: Install extension packages
         run: yarn install --frozen-lockfile
+
+      - name: Install e2e packages
+        run: cd e2e-tests && yarn install --frozen-lockfile
 
       - name: Start xvfb only if it's Linux
         if: startsWith(matrix.os,'ubuntu')

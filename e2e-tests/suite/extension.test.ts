@@ -37,7 +37,7 @@ describe('Stryker Runner', () => {
 
   it('should successfully ask Stryker to mutate a single file', async () => {
     const expectedMutationTarget = 'e2e-tests/test-workspace/add.ts';
-    const file = workspace.with({ path: `${workspace.path}/e2e-tests/test-workspace/add.ts` });
+    const file = workspace.with({ path: path.join(workspace.path, 'e2e-tests', 'test-workspace', 'add.ts') });
 
     // Issue command
     await vscode.commands.executeCommand('stryker-runner.run-stryker-on-file', file);

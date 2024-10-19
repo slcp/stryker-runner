@@ -1,6 +1,8 @@
-import vscode, { Position, Range } from 'vscode';
+import { expect } from 'chai';
 import fs from 'fs';
+import { beforeEach, describe, it } from 'mocha';
 import path from 'path';
+import vscode, { Position, Range } from 'vscode';
 
 const waitForFile = async (file: string): Promise<void> => {
   if (fs.existsSync(file)) {
@@ -32,6 +34,7 @@ describe('Stryker Runner', () => {
     // Open the workspace (this project)
     await vscode.commands.executeCommand('vscode.openFolder', workspace);
   });
+
   it('should successfully ask Stryker to mutate a single file', async () => {
     const expectedMutationTarget = 'e2e-tests/test-workspace/add.ts';
     const file = workspace.with({ path: `${workspace.path}/e2e-tests/test-workspace/add.ts` });
@@ -42,9 +45,10 @@ describe('Stryker Runner', () => {
     const report = await getReport();
 
     // We only expect one mutation target, there could be multiple
-    expect(report.config.mutate).toHaveLength(1);
-    expect(report.config.mutate[0]).toEqual(expectedMutationTarget);
-  }, 90000);
+    expect(report.config.mutate.length).to.equal(1);
+    expect(report.config.mutate[0]).to.equal(expectedMutationTarget);
+  }).timeout(90000);
+
   it('should successfully ask Stryker to mutate a line range in a file', async () => {
     const expectedMutationTarget = 'e2e-tests/test-workspace/add.ts:1-1';
     const file = workspace.with({ path: `${workspace.path}/e2e-tests/test-workspace/add.ts` });
@@ -61,7 +65,7 @@ describe('Stryker Runner', () => {
     const report = await getReport();
 
     // We only expect one mutation target, there could be multiple
-    expect(report.config.mutate).toHaveLength(1);
-    expect(report.config.mutate[0]).toEqual(expectedMutationTarget);
-  }, 90000);
+    expect(report.config.mutate.length).to.equal(1);
+    expect(report.config.mutate[0]).to.equal(expectedMutationTarget);
+  }).timeout(90000);
 });

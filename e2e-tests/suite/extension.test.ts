@@ -48,7 +48,7 @@ describe('Stryker Runner', () => {
     // We only expect one mutation target, there could be multiple
     expect(report.config.mutate.length).to.equal(1);
     expect(report.config.mutate[0]).to.equal(expectedMutationTarget);
-  }).timeout(180000);
+  }).timeout(90000);
 
   it('should successfully ask Stryker to mutate a line range in a file', async () => {
     const expectedMutationTarget = 'e2e-tests/test-workspace/add.ts:1-1';
@@ -68,5 +68,5 @@ describe('Stryker Runner', () => {
     // We only expect one mutation target, there could be multiple
     expect(report.config.mutate.length).to.equal(1);
     expect(report.config.mutate[0]).to.equal(expectedMutationTarget);
-  }).timeout(180000);
+  }).timeout(90000);
 });

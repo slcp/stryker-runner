@@ -20,10 +20,13 @@ export const workspaceHasYarnLockFile = (file: vscode.Uri): boolean => {
   return fileExistsInTree(root.uri, file, 'yarn.lock');
 };
 
-export const findNearestPackageJsonAncestor = (file: vscode.Uri): { success: boolean; uri: vscode.Uri | undefined } => {
+export const findNearestPackageJsonAncestor = (
+  file: vscode.Uri,
+): { success: true; uri: vscode.Uri } | { success: false; uri: undefined } => {
   const root = vscode.workspace.getWorkspaceFolder(file);
   if (!root) return { success: false, uri: undefined };
   if (!file.path.includes(root.uri.path)) return { success: false, uri: undefined };
   const maybeUri = findFileInTree(root.uri, file, 'package.json');
-  return { success: !!maybeUri, uri: maybeUri };
+  if (maybeUri) return { success: true, uri: maybeUri };
+  return { success: false, uri: maybeUri };
 };

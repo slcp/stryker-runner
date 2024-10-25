@@ -41,7 +41,7 @@ describe('Stryker', () => {
 
       beforeEach(() => {
         mockGetWorkspaceFolder.mockReturnValue({ uri: new Uri({ path: '/path' }) });
-        mockFindNearestPackageJsonAncestor.mockReturnValue({ success: true, uri: Uri.file('/path') });
+        mockFindNearestPackageJsonAncestor.mockReturnValue({ success: true, uri: Uri.file('/path/package.json') });
       });
 
       it('should execute a Stryker command with a custom config file path', () => {

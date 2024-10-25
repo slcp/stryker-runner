@@ -14,7 +14,7 @@ const getDesiredWorkingDirectory = (data: {
   workspace: vscode.WorkspaceFolder | undefined;
 }): vscode.Uri => {
   const { file, packageJson, workspace } = data;
-  if (packageJson) return packageJson;
+  if (packageJson) return vscode.Uri.file(path.dirname(packageJson.fsPath));
   if (workspace) return workspace.uri;
   return vscode.Uri.file(path.dirname(file.fsPath));
 };

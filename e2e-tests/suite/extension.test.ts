@@ -37,8 +37,8 @@ describe('Stryker Runner', () => {
   });
 
   it('should successfully ask Stryker to mutate a single file', async () => {
-    const expectedMutationTarget = 'e2e-tests/test-workspace/add.ts';
-    const file = workspace.with({ path: path.join(workspace.path, 'e2e-tests', 'test-workspace', 'add.ts') });
+    const expectedMutationTarget = 'test-workspace/add.ts';
+    const file = workspace.with({ path: path.join(workspace.path, 'test-workspace', 'add.ts') });
 
     // Issue command
     await vscode.commands.executeCommand('stryker-runner.run-stryker-on-file', file);
@@ -51,8 +51,8 @@ describe('Stryker Runner', () => {
   }).timeout(90000);
 
   it('should successfully ask Stryker to mutate a line range in a file', async () => {
-    const expectedMutationTarget = 'e2e-tests/test-workspace/add.ts:1-1';
-    const file = workspace.with({ path: path.join(workspace.path, 'e2e-tests', 'test-workspace', 'add.ts') });
+    const expectedMutationTarget = 'test-workspace/add.ts:1-1';
+    const file = workspace.with({ path: path.join(workspace.path, 'test-workspace', 'add.ts') });
 
     // Open test file to mutate with a text selection in place and holding focus
     await vscode.window.showTextDocument(file, {

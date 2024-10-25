@@ -14,5 +14,5 @@ module.exports = {
   jest: {
     configFile: './jest.stryker.config.js',
   },
-  disableTypeChecks: '{e2e-tests,src}/**/*.{js,ts}',
+  disableTypeChecks: '{e2e-tests,src,test-workspace}/**/*.{js,ts}',
 };

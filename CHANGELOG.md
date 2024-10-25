@@ -4,6 +4,12 @@ All notable changes to the "stryker-runner" extension will be documented in this
 
 ## [Unreleased]
 
+## [v0.0.47](https://github.com/slcp/stryker-runner/compare/v0.0.46...v0.0.47)
+
+- Run Stryker in the context of the directory containing the closest `package.json` to the file being tested
+  - [Pull Request](https://github.com/slcp/stryker-runner/pull/448) with some more information
+- Update dependencies
+
 ## [v0.0.46](https://github.com/slcp/stryker-runner/compare/v0.0.45...v0.0.46)
 
 - Update dependencies

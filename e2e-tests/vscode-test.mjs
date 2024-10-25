@@ -10,4 +10,5 @@ export default defineConfig({
   extensionDevelopmentPath: path.join(__dirname, '..'),
   version: 'insiders',
   workspaceFolder: path.join(__dirname, '..'),
+  launchArgs: ['--disable-extensions'],
 });

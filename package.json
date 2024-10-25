@@ -73,6 +73,8 @@
   },
   "scripts": {
     "vscode:prepublish": "yarn run compile",
+    "prepackage": "yarn run compile",
+    "package": "npx vsce package v9.9.9 --no-git-tag-version",
     "compile": "tsc -p tsconfig.build.json",
     "compile:e2e": "cd e2e-tests && yarn compile",
     "prepare": "husky install",

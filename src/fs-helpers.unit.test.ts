@@ -13,7 +13,7 @@ const mockReturnValueTimes = <T extends jest.Mock, Y>(times: number, method: T, 
 
 describe('Filesytem helpers', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.resetAllMocks();
     // A minority of tests use a Windows back slash path separator, default to forward slash
     (path.sep as any) = '/';
   });
@@ -145,6 +145,18 @@ describe('Filesytem helpers', () => {
   });
   describe('Find nearest package.json parent', () => {
     it('should do search and return false if file does not exist in a workspace folder', () => {
+      mockGetWorkspaceFolder.mockReturnValue({
+        uri: { path: 'root/path' },
+      });
+      mockReturnValueTimes(1, mockExistsSync, false);
+
+      const res = findNearestPackageJsonAncestor(new Uri({ path: 'x.test.ts' }));
+
+      expect(mockGetWorkspaceFolder).toHaveBeenCalledWith(expect.objectContaining({ path: 'x.test.ts' }));
+      expect(existsSync).not.toHaveBeenCalled();
+      expect(res).toEqual({ success: false });
+    });
+    it('should do search and return false if there is no workspace folder', () => {
       mockReturnValueTimes(1, mockExistsSync, false);
 
       const res = findNearestPackageJsonAncestor(new Uri({ path: 'x.test.ts' }));

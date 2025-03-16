@@ -12,7 +12,7 @@ These tests have their own dependencies that must be installed separately
 
 The test suite uses `mocha` and `chai` because the `vscode-test-cli` expects this and does no support `jest`.
 
-- These tests used to be use `jest` as a test runner before `vscode-test-cli` was released but this was a custom implementation, using `vscode-test-cli` is lower maintenance and supported tooling.
+- These tests used to use `jest` as a test runner before `vscode-test-cli` was released but this was a custom implementation, using `vscode-test-cli` is lower maintenance and supported tooling.
 
 ## Running the tests
 

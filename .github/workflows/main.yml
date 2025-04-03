@@ -16,7 +16,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: yarn
 
       - name: Install packages
@@ -37,7 +37,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: yarn
 
       - name: Install packages
@@ -55,7 +55,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: yarn
 
       - name: Get branch name
@@ -96,7 +96,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: yarn
 
       - name: Install extension packages
@@ -139,7 +139,7 @@ jobs:
 
   #     - uses: actions/setup-node@v4
   #       with:
-  #         node-version: 20
+  #         node-version: 22
   #         cache: yarn
 
   #     - name: Install extension packages

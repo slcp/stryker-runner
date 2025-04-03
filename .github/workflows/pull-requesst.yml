@@ -12,9 +12,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: yarn
 
       - name: Install packages
@@ -33,9 +33,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: yarn
 
       - name: Install packages
@@ -52,18 +52,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: yarn
 
       - name: Get branch name
         id: branch-name
-        uses: tj-actions/branch-names@v5.5
+        uses: tj-actions/branch-names@v8
 
       - name: Cache Stryker incremental test ouput
         id: cache-stryker-incremental-output
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: stryker-incremental-output
         with:
@@ -87,13 +87,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: yarn
 
-      - name: Install packages
+      - name: Install extension packages
         run: yarn install --frozen-lockfile
+
+      - name: Install e2e packages
+        run: cd e2e-tests && yarn install --frozen-lockfile
 
       - name: Start xvfb only if it's Linux
         run: |

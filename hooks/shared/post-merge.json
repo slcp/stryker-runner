@@ -1,0 +1,8 @@
+{
+  "steps": [
+    {
+      "name": "Install dependencies",
+      "command": "yarn"
+    }
+  ]
+}

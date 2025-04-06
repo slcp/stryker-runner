@@ -77,7 +77,7 @@
     "package": "npx vsce package v9.9.9 --no-git-tag-version",
     "compile": "tsc -p tsconfig.build.json",
     "compile:e2e": "cd e2e-tests && yarn compile",
-    "prepare": "husky init",
+    "prepare": "husky",
     "prettier:fix": "yarn prettier:check -- --write",
     "prettier:check": "prettier \"./**/*\" --check --no-editorconfig",
     "lint": "eslint src --max-warnings 0 --ext ts",

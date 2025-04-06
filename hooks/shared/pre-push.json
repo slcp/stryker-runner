@@ -1,13 +1,12 @@
 {
-    "steps": [
-      {
-        "name": "Unit tests",
-        "command": "yarn test:unit"
-      },
-      {
-        "name": "Mutation tests",
-        "command": "yarn test:mutation"
-      }
-    ]
-  }
-  
+  "steps": [
+    {
+      "name": "Unit tests",
+      "command": "yarn test:unit"
+    },
+    {
+      "name": "Mutation tests",
+      "command": "yarn test:mutation"
+    }
+  ]
+}

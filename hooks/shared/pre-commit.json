@@ -1,9 +1,8 @@
 {
-    "steps": [
-      {
-        "name": "Lint staged files",
-        "command": "yarn lint-staged"
-      }
-    ]
-  }
-  
+  "steps": [
+    {
+      "name": "Lint staged files",
+      "command": "yarn lint-staged"
+    }
+  ]
+}

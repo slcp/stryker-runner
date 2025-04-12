@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { StrykerRunnerCodeLensProvider } from './code-lens';
 import { runStrykerOnFileCommand, runStrykerOnSelectionCommand } from './commands';
 import { commandRunner } from './stryker';
+import { getLogger } from './logger';
 
 export function activate(context: vscode.ExtensionContext) {
   const run = commandRunner();
@@ -16,6 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
     runStrykerOnSelectionCommand(run),
   );
 
+  getLogger().log('Activating prior to registering lense provider');
   const codeLensProvider = new StrykerRunnerCodeLensProvider();
   const codeLensProviderDisposable = vscode.languages.registerCodeLensProvider(
     [

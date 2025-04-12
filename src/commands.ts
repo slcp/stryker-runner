@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { CommandRunner } from './stryker';
 import { isTestFile, showInvalidFileMessage } from './valid-files';
+import { getLogger } from './logger';
 
 export const runStrykerOnFileCommand =
   (run: CommandRunner) =>
@@ -19,6 +20,7 @@ export const runStrykerOnFileCommand =
 export const runStrykerOnSelectionCommand =
   (run: CommandRunner) =>
   async (...args: unknown[]) => {
+    getLogger().log('Running on selection');
     if (!(args[0] instanceof vscode.Uri)) return;
     const file = args[0];
 

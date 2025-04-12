@@ -34,8 +34,9 @@ export const findNearestPackageJsonAncestor = (
 
 export const loadStrykerResults = (context: vscode.Uri): StrykerResults => {
   const folder = vscode.workspace.getWorkspaceFolder(context);
-  // const defaultResultsPath = 'reports/stryker-incremental.json';
-  const userPath = '/test/stryker/stryker-incremental.json';
-  const strykerResults = JSON.parse(readFileSync(`${folder?.uri.path}/${userPath}`).toString()) as StrykerResults;
+  const defaultResultsPath = 'reports/stryker-incremental.json';
+  const strykerResults = JSON.parse(
+    readFileSync(`${folder?.uri.path}/${defaultResultsPath}`).toString(),
+  ) as StrykerResults;
   return strykerResults;
 };

@@ -13,6 +13,7 @@ export const getLogger = () => {
   if (!channel) {
     channel = vscode.window.createOutputChannel('Stryker Runner');
   }
+  // Stryker disable next-line BooleanLiteral,BlockStatement
   if (!logger) {
     logger = createLogger(channel);
   }

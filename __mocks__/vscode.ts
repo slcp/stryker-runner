@@ -32,6 +32,7 @@ export const mockShowErrorMessage = jest.fn();
 export const mockOnDidCloseTerminal = jest.fn();
 export const mockCreateTerminal = jest.fn();
 export const mockRegisterCommand = jest.fn();
+export const mockCreateOutputChannel = jest.fn();
 
 export const workspace = {
   getWorkspaceFolder: mockGetWorkspaceFolder,
@@ -40,11 +41,16 @@ export const workspace = {
   })),
 };
 
+export const outputChannel = {
+  appendLine: jest.fn(),
+};
+
 export const window = {
   showErrorMessage: mockShowErrorMessage,
   onDidCloseTerminal: mockOnDidCloseTerminal,
   createTerminal: mockCreateTerminal,
   activeTextEditor: {},
+  createOutputChannel: mockCreateOutputChannel,
 };
 
 export const commands = {

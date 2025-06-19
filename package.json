@@ -100,7 +100,7 @@
     "@typescript-eslint/parser": "5.62.0",
     "eslint": "8.57.1",
     "husky": "9.1.7",
-    "jest": "30.0.0",
+    "jest": "30.0.2",
     "jest-cli": "30.0.2",
     "lint-staged": "16.1.2",
     "prettier": "3.5.3",

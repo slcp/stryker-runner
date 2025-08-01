@@ -1,7 +1,12 @@
 import { existsSync } from 'fs';
 import path from 'path';
 import { mockGetWorkspaceFolder, Uri } from '../__mocks__/vscode';
-import { fileExistsInTree, findNearestPackageJsonAncestor, workspaceHasYarnLockFile } from './fs-helpers';
+import {
+  fileExistsInTree,
+  findNearestPackageJsonAncestor,
+  workspaceHasYarnLockFile,
+  findStrykerOutputFile,
+} from './fs-helpers';
 
 jest.mock('fs');
 
@@ -213,6 +218,43 @@ describe('Filesytem helpers', () => {
       expect(res.success).toEqual(true);
       expect(res.uri).toBeDefined();
       expect((res.uri as Uri).path).toEqual('root/path/to/package.json');
+    });
+  });
+
+  describe('findStrykerOutputFile', () => {
+    it('should find mutation.json in reports/mutation directory', () => {
+      mockExistsSync.mockImplementation((filePath) => {
+        return String(filePath).endsWith('reports/mutation/mutation.json');
+      });
+
+      const workspaceRoot = new Uri({ path: '/workspace' });
+      const result = findStrykerOutputFile(workspaceRoot);
+
+      expect(result?.fsPath).toBe('/workspace/reports/mutation/mutation.json');
+      expect(mockExistsSync).toHaveBeenCalledWith('/workspace/reports/mutation/mutation.json');
+    });
+
+    it('should find mutation.json in reports directory when mutation subfolder does not exist', () => {
+      mockExistsSync.mockImplementation((filePath) => {
+        return String(filePath).endsWith('reports/mutation.json');
+      });
+
+      const workspaceRoot = new Uri({ path: '/workspace' });
+      const result = findStrykerOutputFile(workspaceRoot);
+
+      expect(result?.fsPath).toBe('/workspace/reports/mutation.json');
+      expect(mockExistsSync).toHaveBeenCalledWith('/workspace/reports/mutation/mutation.json');
+      expect(mockExistsSync).toHaveBeenCalledWith('/workspace/reports/mutation.json');
+    });
+
+    it('should return undefined when no mutation.json file is found', () => {
+      mockExistsSync.mockReturnValue(false);
+
+      const workspaceRoot = new Uri({ path: '/workspace' });
+      const result = findStrykerOutputFile(workspaceRoot);
+
+      expect(result).toBeUndefined();
+      expect(mockExistsSync).toHaveBeenCalledTimes(4);
     });
   });
 });

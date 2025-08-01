@@ -5,7 +5,7 @@
   "repository": "https://github.com/slcp/stryker-runner",
   "publisher": "pixabelle",
   "license": "MIT",
-  "version": "0.0.48",
+  "version": "9.9.9",
   "engines": {
     "vscode": "^1.70.0"
   },
@@ -22,7 +22,10 @@
   "preview": false,
   "activationEvents": [
     "onCommand:stryker-runner.run-stryker-on-file",
-    "onCommand:stryker-runner.run-stryker-on-selection"
+    "onCommand:stryker-runner.run-stryker-on-selection",
+    "onCommand:stryker-runner.show-mutant-results",
+    "onCommand:stryker-runner.hide-mutant-results",
+    "onCommand:stryker-runner.toggle-mutant-results"
   ],
   "main": "./out/src/extension.js",
   "contributes": {
@@ -34,6 +37,21 @@
       {
         "command": "stryker-runner.run-stryker-on-selection",
         "title": "Run Stryker"
+      },
+      {
+        "command": "stryker-runner.show-mutant-results",
+        "title": "Show Mutant Results",
+        "category": "Stryker"
+      },
+      {
+        "command": "stryker-runner.hide-mutant-results",
+        "title": "Hide Mutant Results",
+        "category": "Stryker"
+      },
+      {
+        "command": "stryker-runner.toggle-mutant-results",
+        "title": "Toggle Mutant Results",
+        "category": "Stryker"
       }
     ],
     "menus": {
@@ -48,6 +66,28 @@
         {
           "command": "stryker-runner.run-stryker-on-selection",
           "group": "02_stryker"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "stryker-runner.show-mutant-results",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "stryker-runner.hide-mutant-results",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "stryker-runner.toggle-mutant-results",
+          "when": "workspaceFolderCount > 0"
+        }
+      ],
+      "keybindings": [
+        {
+          "command": "stryker-runner.toggle-mutant-results",
+          "key": "ctrl+shift+m",
+          "mac": "cmd+shift+m",
+          "when": "editorTextFocus"
         }
       ]
     },

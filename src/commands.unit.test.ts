@@ -1,11 +1,27 @@
 import { Uri, window } from '../__mocks__/vscode';
-import { runStrykerOnFileCommand, runStrykerOnSelectionCommand } from './commands';
+import {
+  runStrykerOnFileCommand,
+  runStrykerOnSelectionCommand,
+  showMutantResultsCommand,
+  hideMutantResultsCommand,
+  toggleMutantResultsCommand,
+} from './commands';
 import { mockConsoleLog } from './test-helpers';
 import { isTestFile, showInvalidFileMessage } from './valid-files';
+import { mutantDecorationManager } from './mutant-decorations';
 
 jest.mock('./valid-files');
+jest.mock('./mutant-decorations', () => ({
+  mutantDecorationManager: {
+    loadStrykerReport: jest.fn(),
+    enable: jest.fn(),
+    disable: jest.fn(),
+    isDecorationEnabled: jest.fn(),
+  },
+}));
 
 const mockIsTestFile = isTestFile as jest.MockedFn<typeof isTestFile>;
+const mockMutantDecorationManager = mutantDecorationManager as jest.Mocked<typeof mutantDecorationManager>;
 
 describe('Commands', () => {
   mockConsoleLog();
@@ -107,6 +123,69 @@ describe('Commands', () => {
       expect(run).toHaveBeenCalledWith({ file: expect.objectContaining({ path: 'x.ts' }), lineRange: '5-7' });
       expect(isTestFile).toHaveBeenCalledWith(expect.objectContaining({ path: 'x.ts' }));
       expect(showInvalidFileMessage).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Mutant Results Commands', () => {
+    describe('showMutantResultsCommand', () => {
+      it('should load report and enable decorations when successful', async () => {
+        const mockWorkspaceFolder = { uri: { fsPath: '/workspace' } };
+        // Mock workspace.workspaceFolders by modifying the imported workspace object
+        const vscode = require('vscode');
+        vscode.workspace.workspaceFolders = [mockWorkspaceFolder];
+
+        mockMutantDecorationManager.loadStrykerReport.mockResolvedValue(true);
+
+        await showMutantResultsCommand();
+
+        expect(mockMutantDecorationManager.loadStrykerReport).toHaveBeenCalledWith(mockWorkspaceFolder);
+        expect(mockMutantDecorationManager.enable).toHaveBeenCalled();
+      });
+
+      it('should not enable decorations when loading fails', async () => {
+        const mockWorkspaceFolder = { uri: { fsPath: '/workspace' } };
+        const vscode = require('vscode');
+        vscode.workspace.workspaceFolders = [mockWorkspaceFolder];
+
+        mockMutantDecorationManager.loadStrykerReport.mockResolvedValue(false);
+
+        await showMutantResultsCommand();
+
+        expect(mockMutantDecorationManager.loadStrykerReport).toHaveBeenCalledWith(mockWorkspaceFolder);
+        expect(mockMutantDecorationManager.enable).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('hideMutantResultsCommand', () => {
+      it('should disable decorations', () => {
+        hideMutantResultsCommand();
+
+        expect(mockMutantDecorationManager.disable).toHaveBeenCalled();
+      });
+    });
+
+    describe('toggleMutantResultsCommand', () => {
+      it('should hide when decorations are enabled', async () => {
+        mockMutantDecorationManager.isDecorationEnabled.mockReturnValue(true);
+
+        await toggleMutantResultsCommand();
+
+        expect(mockMutantDecorationManager.disable).toHaveBeenCalled();
+      });
+
+      it('should show when decorations are disabled', async () => {
+        const mockWorkspaceFolder = { uri: { fsPath: '/workspace' } };
+        const vscode = require('vscode');
+        vscode.workspace.workspaceFolders = [mockWorkspaceFolder];
+
+        mockMutantDecorationManager.isDecorationEnabled.mockReturnValue(false);
+        mockMutantDecorationManager.loadStrykerReport.mockResolvedValue(true);
+
+        await toggleMutantResultsCommand();
+
+        expect(mockMutantDecorationManager.loadStrykerReport).toHaveBeenCalledWith(mockWorkspaceFolder);
+        expect(mockMutantDecorationManager.enable).toHaveBeenCalled();
+      });
     });
   });
 });

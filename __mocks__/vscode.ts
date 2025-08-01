@@ -56,3 +56,9 @@ export const window = {
 export const commands = {
   registerCommand: mockRegisterCommand,
 };
+
+export enum OverviewRulerLane {
+  Left = 1,
+  Center = 2,
+  Right = 3,
+}

@@ -30,3 +30,22 @@ export const findNearestPackageJsonAncestor = (
   if (maybeUri) return { success: true, uri: maybeUri };
   return { success: false, uri: maybeUri };
 };
+
+export const findStrykerOutputFile = (workspaceRoot: vscode.Uri): vscode.Uri | undefined => {
+  // Common Stryker output locations
+  const possiblePaths = [
+    'reports/mutation/mutation.json',
+    'reports/mutation.json',
+    'stryker-out/mutation.json',
+    'mutation.json',
+  ];
+
+  for (const relativePath of possiblePaths) {
+    const fullPath = path.join(workspaceRoot.fsPath, relativePath);
+    if (existsSync(fullPath)) {
+      return vscode.Uri.file(fullPath);
+    }
+  }
+
+  return undefined;
+};

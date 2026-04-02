@@ -4225,10 +4225,10 @@ tree-kill@~1.2.2:
   resolved "https://registry.npmjs.org/tree-kill/-/tree-kill-1.2.2.tgz"
   integrity sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==
 
-ts-jest@29.4.8:
-  version "29.4.8"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-29.4.8.tgz#1706d927533e4c2b4b294d9583cd71fe9768c50c"
-  integrity sha512-O94OwI0rjZsKhq5iSCTWUBQqliMOPfsCMTYkPaehpas5tGcwgtzxLH2xWU71ajaBp/F4XLzLWxRjelQAkmw5Rg==
+ts-jest@29.4.9:
+  version "29.4.9"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-29.4.9.tgz#47dc33d0f5c36bddcedd16afefae285e0b049d2d"
+  integrity sha512-LTb9496gYPMCqjeDLdPrKuXtncudeV1yRZnF4Wo5l3SFi0RYEnYRNgMrFIdg+FHvfzjCyQk1cLncWVqiSX+EvQ==
   dependencies:
     bs-logger "^0.2.6"
     fast-json-stable-stringify "^2.1.0"

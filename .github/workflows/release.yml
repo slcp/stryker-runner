@@ -21,7 +21,7 @@ jobs:
           token: ${{ secrets.RELEASE_PAT }}
           ref: main
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: yarn
